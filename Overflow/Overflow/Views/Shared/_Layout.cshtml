@@ -71,8 +71,8 @@
                 Search
             </button>
         </form>
-        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" >Sign Up</button>
-        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)">Log In</button>
+        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#logInModal">Log In</button>
 
     </nav>
     <div class="container body-content">
@@ -82,9 +82,65 @@
             <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
         </footer>
     </div>
+    <div class="modal fade" id="signUpModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Sign Up</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="Enter your first name" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Enter your last name" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="passwd">Password</label>
+                            <input type="password" class="form-control" id="passwd" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="logInModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Log In</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" placeholder="Enter your email" id="email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="passwd">Password</label>
+                            <input type="password" class="form-control" id="passwd" placeholder="Password" />
+                        </div>
+                        <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
 </body>
 </html>

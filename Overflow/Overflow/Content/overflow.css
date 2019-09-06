@@ -1,0 +1,20 @@
+a {
+  color: rgb(97, 92, 92);
+  font-weight: 600;
+}
+
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.redorange .active a,
+.redorange .active a:hover {
+  background-color: orangered;
+}
+
+#navLogo {
+  height: 60px;
+}
+
+

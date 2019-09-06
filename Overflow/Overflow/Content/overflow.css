@@ -8,13 +8,10 @@ a:hover {
   text-decoration: none;
 }
 
-.redorange .active a,
-.redorange .active a:hover {
-  background-color: orangered;
-}
-
 #navLogo {
   height: 60px;
 }
 
-
+.btn-orange{
+    background-color: rgb(238,75,18);
+}

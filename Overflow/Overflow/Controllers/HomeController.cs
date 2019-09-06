@@ -15,21 +15,15 @@ namespace Overflow.Controllers
 
         public ActionResult newRecipes()
         {
+            ViewBag.Message = "Your application description page.";
+
             return View();
         }
 
         public ActionResult advSearch()
         {
-            return View();
-        }
+            ViewBag.Message = "Your contact page.";
 
-        public ActionResult signup()
-        {
-            return View();
-        }
-        
-        public ActionResult login()
-        {
             return View();
         }
     }

@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Overflow.Utilities;
+
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Overflow</title>
+    <title>Overflow - @ViewBag.Title</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet"
@@ -32,15 +34,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Home/Index">Home<span class="sr-only">(current)</span></a>
+            <ul class="navbar-nav ">
+                <li class="nav-item @Html.IsActive("Home","Index")">
+                    @Html.ActionLink("Home", "Index", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Home/NewRecipes">New Recipes</a>
+                <li class="nav-item @Html.IsActive("Home","NewRecipes")">
+                    @Html.ActionLink("New Recipes", "NewRecipes", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/Home/AdvSearch">Advanced Search</a>
+                <li class="nav-item @Html.IsActive("Home","advSearch")">
+                    @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"
@@ -69,7 +71,7 @@
                 Search
             </button>
         </form>
-        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)">Sign Up</button>
+        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" >Sign Up</button>
         <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)">Log In</button>
 
     </nav>

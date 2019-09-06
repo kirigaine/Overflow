@@ -13,14 +13,14 @@ namespace Overflow.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult newRecipes()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult advSearch()
         {
             ViewBag.Message = "Your contact page.";
 

@@ -18,129 +18,312 @@
             crossorigin="anonymous"></script>
     <link href="~/Content/overflow.css" rel="stylesheet" />
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
+@if (User.Identity.IsAuthenticated)
+{
+    <body>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!--Logo-->
+            <a class="navbar-brand" href="/Home/Index">
 
-            <img src="~/Content/mockup2.png" id="navLogo" />
-        </a>
-        <button class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ">
-                <li class="nav-item @Html.IsActive("Home","Index")">
-                    @Html.ActionLink("Home", "Index", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item @Html.IsActive("Home","NewRecipes")">
-                    @Html.ActionLink("New Recipes", "NewRecipes", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item @Html.IsActive("Home","advSearch")">
-                    @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       id="navbarDropdownMenuLink"
-                       role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false">
-                        My Account
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Saved Recipes</a>
-                        <a class="dropdown-item" href="#">Inventory</a>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2"
-                   type="search"
-                   placeholder="Search"
-                   aria-label="Search" />
-            <button class="btn btn-outline my-2 my-sm-0" type="submit">
-                Search
+                <img src="~/Content/mockup2.png" id="navLogo" />
+            </a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-        </form>
-        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
-        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#logInModal">Log In</button>
-
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
-        </footer>
-    </div>
-    <div class="modal fade" id="signUpModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Sign Up</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" placeholder="Enter your first name" class="form-control" />
+            <!--Navbar Items-->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ">
+                    <!--Home-->
+                    <li class="nav-item @Html.IsActive("Home", "Index")">
+                        @Html.ActionLink("Home", "Index", null, new { @class = "nav-link" })
+                    </li>
+                    <!--New Recipes-->
+                    <li class="nav-item @Html.IsActive("Home", "NewRecipes")">
+                        @Html.ActionLink("New Recipes", "NewRecipes", null, new { @class = "nav-link" })
+                    </li>
+                    <!--Advanced Search-->
+                    <li class="nav-item @Html.IsActive("Home", "advSearch")">
+                        @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item @Html.IsActive("Home", "advSearch")">
+                        @Html.ActionLink("My Inventory", "advSearch", null, new { @class = "nav-link" })
+                    </li>
+                    <!--Account Dropdown-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="navbarDropdownMenuLink"
+                           role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            My Account
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Saved Recipes</a>
+                            <a class="dropdown-item" href="#">My Profile</a>
                         </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" placeholder="Enter your last name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" placeholder="Enter your email" />
-                        </div>
-                        <div class="form-group">
-                            <label for="passwd">Password</label>
-                            <input type="password" class="form-control" id="passwd" placeholder="Password">
-                        </div>
-                        <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
-                    </form>
+                    </li>
+                </ul>
+            </div>
+            <!--Search field-->
+            <form class="form-inline">
+                <input class="form-control mr-sm-2"
+                       type="search"
+                       placeholder="Search"
+                       aria-label="Search" />
+                <button class="btn btn-outline my-2 my-sm-0" type="submit">
+                    Search
+                </button>
+            </form>
+            <!--Sign up button-->
+            <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+            <!--Log in button-->
+            <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#logInModal">Log In</button>
+        </nav>
+        <div class="container body-content">
+            <!--Rendering HTML-->
+            @RenderBody()
+            <hr />
+            <!--Footer-->
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
+            </footer>
+        </div>
+        <!--Sign up modal-->
+        <div class="modal fade" id="signUpModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sign Up</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <!--First name input-->
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" placeholder="Enter your first name" class="form-control" />
+                            </div>
+                            <!--Last name input-->
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" placeholder="Enter your last name" class="form-control" />
+                            </div>
+                            <!--Email input-->
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email" />
+                            </div>
+                            <!--Password input-->
+                            <div class="form-group">
+                                <label for="passwd">Password</label>
+                                <input type="password" class="form-control" id="passwd" placeholder="Password">
+                            </div>
+                            <!--Password verification-->
+                            <div class="form-group">
+                                <label for="passwdVerify">Verify Password</label>
+                                <input type="password" class="form-control" id="passwdVerify" placeholder="Verify your password" />
+                            </div>
+                            <!--Submit button-->
+                            <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="logInModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Log In</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" placeholder="Enter your email" id="email" />
-                        </div>
-                        <div class="form-group">
-                            <label for="passwd">Password</label>
-                            <input type="password" class="form-control" id="passwd" placeholder="Password" />
-                        </div>
-                        <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
-                    </form>
+        <!--Login Modal-->
+        <div class="modal fade" id="logInModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Log In</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <!--Email input-->
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" placeholder="Enter your email" id="email" />
+                            </div>
+                            <!--Password input-->
+                            <div class="form-group">
+                                <label for="passwd">Password</label>
+                                <input type="password" class="form-control" id="passwd" placeholder="Password" />
+                            </div>
+                            <!--Submit button-->
+                            <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-            @Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/bootstrap")
-            @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+}
+else
+{
+    <body>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!--Logo-->
+            <a class="navbar-brand" href="/Home/Index">
+
+                <img src="~/Content/mockup2.png" id="navLogo" />
+            </a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--Navbar Items-->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ">
+                    <!--Home-->
+                    <li class="nav-item @Html.IsActive("Home", "Index")">
+                        @Html.ActionLink("Home", "Index", null, new { @class = "nav-link" })
+                    </li>
+                    <!--New Recipes-->
+                    <li class="nav-item @Html.IsActive("Home", "NewRecipes")">
+                        @Html.ActionLink("New Recipes", "NewRecipes", null, new { @class = "nav-link" })
+                    </li>
+                    <!--Advanced Search-->
+                    <li class="nav-item @Html.IsActive("Home", "advSearch")">
+                        @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item @Html.IsActive("Home", "advSearch")">
+                        @Html.ActionLink("My Inventory", "advSearch", null, new { @class = "nav-link" })
+                    </li>
+                    <!--Account Dropdown-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="navbarDropdownMenuLink"
+                           role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">
+                            My Account
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Saved Recipes</a>
+                            <a class="dropdown-item" href="#">My Profile</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--Search field-->
+            <form class="form-inline">
+                <input class="form-control mr-sm-2"
+                       type="search"
+                       placeholder="Search"
+                       aria-label="Search" />
+                <button class="btn btn-outline my-2 my-sm-0" type="submit">
+                    Search
+                </button>
+            </form>
+            <!--Sign up button-->
+            <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
+            <!--Log in button-->
+            <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#logInModal">Log In</button>
+        </nav>
+        <div class="container body-content">
+            <!--Rendering HTML-->
+            @RenderBody()
+            <hr />
+            <!--Footer-->
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
+            </footer>
+        </div>
+        <!--Sign up modal-->
+        <div class="modal fade" id="signUpModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sign Up</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <!--First name input-->
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" placeholder="Enter your first name" class="form-control" />
+                            </div>
+                            <!--Last name input-->
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" placeholder="Enter your last name" class="form-control" />
+                            </div>
+                            <!--Email input-->
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email" />
+                            </div>
+                            <!--Password input-->
+                            <div class="form-group">
+                                <label for="passwd">Password</label>
+                                <input type="password" class="form-control" id="passwd" placeholder="Password">
+                            </div>
+                            <!--Password verification-->
+                            <div class="form-group">
+                                <label for="passwdVerify">Verify Password</label>
+                                <input type="password" class="form-control" id="passwdVerify" placeholder="Verify your password" />
+                            </div>
+                            <!--Submit button-->
+                            <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Login Modal-->
+        <div class="modal fade" id="logInModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Log In</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <!--Email input-->
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" placeholder="Enter your email" id="email" />
+                            </div>
+                            <!--Password input-->
+                            <div class="form-group">
+                                <label for="passwd">Password</label>
+                                <input type="password" class="form-control" id="passwd" placeholder="Password" />
+                            </div>
+                            <!--Submit button-->
+                            <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+}
 </html>

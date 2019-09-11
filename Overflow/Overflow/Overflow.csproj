@@ -169,6 +169,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\loginModal.cshtml" />
     <Content Include="Views\Shared\signupModal.cshtml" />
+    <Content Include="Views\Shared\authView.cshtml" />
+    <Content Include="Views\Shared\unAuthView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

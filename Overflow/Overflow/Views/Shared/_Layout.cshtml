@@ -1,6 +1,4 @@
-﻿@using Overflow.Utilities;
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>Overflow - @ViewBag.Title</title>
@@ -18,76 +16,17 @@
             crossorigin="anonymous"></script>
     <link href="~/Content/overflow.css" rel="stylesheet" />
 </head>
-@if (User.Identity.IsAuthenticated)
-{
 <body>
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!--Logo-->
-        <a class="navbar-brand" href="/Home/Index">
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.Partial("~/Views/Shared/authView.cshtml")
+    }
+    else
+    {
+        @Html.Partial("~/Views/Shared/unAuthView.cshtml")
 
-            <img src="~/Content/mockup2.png" id="navLogo" />
-        </a>
-        <button class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!--Navbar Items-->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ">
-                <!--Home-->
-                <li class="nav-item @Html.IsActive("Home", "Index")">
-                    @Html.ActionLink("Home", "Index", null, new { @class = "nav-link" })
-                </li>
-                <!--New Recipes-->
-                <li class="nav-item @Html.IsActive("Home", "NewRecipes")">
-                    @Html.ActionLink("New Recipes", "NewRecipes", null, new { @class = "nav-link" })
-                </li>
-                <!--Advanced Search-->
-                <li class="nav-item @Html.IsActive("Home", "advSearch")">
-                    @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item @Html.IsActive("Home", "advSearch")">
-                    @Html.ActionLink("My Inventory", "advSearch", null, new { @class = "nav-link" })
-                </li>
-                <!--Account Dropdown-->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       id="navbarDropdownMenuLink"
-                       role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false">
-                        My Account
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Saved Recipes</a>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <!--Search field-->
-        <form class="form-inline">
-            <input class="form-control mr-sm-2"
-                   type="search"
-                   placeholder="Search"
-                   aria-label="Search" />
-            <button class="btn btn-outline my-2 my-sm-0" type="submit">
-                Search
-            </button>
-        </form>
-        <!--Sign up button-->
-        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
-        <!--Log in button-->
-        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#logInModal">Log In</button>
-    </nav>
+    }
+
     <div class="container body-content">
         <!--Rendering HTML-->
         @RenderBody()
@@ -97,104 +36,9 @@
             <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
         </footer>
     </div>
-    <!--Sign up modal-->
-    @Html.Partial("~/Views/Shared/loginModal.cshtml")
-    <!--Log in modal-->
-    @Html.Partial("~/Views/Shared/signupModal.cshtml")
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
-}
-else
-{
-<body>
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!--Logo-->
-        <a class="navbar-brand" href="/Home/Index">
-
-            <img src="~/Content/mockup2.png" id="navLogo" />
-        </a>
-        <button class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!--Navbar Items-->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ">
-                <!--Home-->
-                <li class="nav-item @Html.IsActive("Home", "Index")">
-                    @Html.ActionLink("Home", "Index", null, new { @class = "nav-link" })
-                </li>
-                <!--New Recipes-->
-                <li class="nav-item @Html.IsActive("Home", "NewRecipes")">
-                    @Html.ActionLink("New Recipes", "NewRecipes", null, new { @class = "nav-link" })
-                </li>
-                <!--Advanced Search-->
-                <li class="nav-item @Html.IsActive("Home", "advSearch")">
-                    @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item @Html.IsActive("Home", "advSearch")">
-                    @Html.ActionLink("My Inventory", "advSearch", null, new { @class = "nav-link" })
-                </li>
-                <!--Account Dropdown-->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       id="navbarDropdownMenuLink"
-                       role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false">
-                        My Account
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Saved Recipes</a>
-                        <a class="dropdown-item" href="#">My Profile</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <!--Search field-->
-        <form class="form-inline">
-            <input class="form-control mr-sm-2"
-                   type="search"
-                   placeholder="Search"
-                   aria-label="Search" />
-            <button class="btn btn-outline my-2 my-sm-0" type="submit">
-                Search
-            </button>
-        </form>
-        <!--Sign up button-->
-        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
-        <!--Log in button-->
-        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#logInModal">Log In</button>
-    </nav>
-    <div class="container body-content">
-        <!--Rendering HTML-->
-        @RenderBody()
-        <hr />
-        <!--Footer-->
-        <footer> 
-            <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
-        </footer>
-    </div>
-    <!--Sign up modal-->
-    <!--Login Modal-->
-    @Html.Partial("~/Views/Shared/loginModal.cshtml")
-    @Html.Partial("~/Views/Shared/signupModal.cshtml")
-
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-}
 </html>

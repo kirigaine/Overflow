@@ -1,8 +1,10 @@
-﻿
+﻿@model Overflow.Models.Login
 @{
     ViewBag.Title = "Login";
 }
 
+@using (Html.BeginForm("Login", "Home"))
+{
     <div class="modal fade" id="logInModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -15,12 +17,12 @@
                         <!--Email input-->
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" placeholder="Enter your email" id="email" />
+                            @Html.TextBoxFor(l => l.Email, new { @class = "form-control" })
                         </div>
                         <!--Password input-->
                         <div class="form-group">
                             <label for="passwd">Password</label>
-                            <input type="password" class="form-control" id="passwd" placeholder="Password" />
+                            @Html.TextBoxFor(l => l.Pass, new { @class = "form-control" })
                         </div>
                         <!--Submit button-->
                         <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
@@ -29,4 +31,4 @@
             </div>
         </div>
     </div>
-
+}

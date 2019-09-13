@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "advSearchModal";
+}
+
+<!--Advanced Search Modal-->
+<div class="modal fade" id="advSearchModal">
+    <div class="= modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Advanced Search</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <!--Keyword input-->
+                    <div class="form-group">
+                        <label for="keyword">Keyword</label>
+                        <input type="text" class="form-control" placeholder="Search keyword" id="keyword" />
+                    </div>
+                    <!--Diet input-->
+                    <div class="form-group">
+                        <label for="diet">Diet</label>
+                        <select class="form-control" id="diet">
+                            <option selected value="none">None</option>
+                            <option value="balanced">Balanced</option>
+                            <option value="highFiber">High-Fiber</option>
+                            <option value="lowCarb">Low-Carb</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="keto">Keto</option>
+                            <option value="lactoseFree">Lactose-Free</option>
+                            <option value="kosher">Kosher</option>
+                            <option value="glutenFree">Gluten-Free</option>
+                            <option value="paleo">Paleo</option>
+                        </select>
+                    </div>
+                    <!--Main Ingriedient Input-->
+                    <div class="form-group">
+                        <label for="mainIngredient">Main Ingredient</label>
+                        <select class="form-control" id="mainIngredient">
+                            <option selected value="none">None</option>
+
+                        </select>
+                    </div>
+                    <!--Calories Input-->
+                    <div class="form-group">
+                        <label for="calories">Calories</label>
+                        <input type="text" class="form-control" placeholder="Amount" id="calories" />
+                    </div>
+                    <!--Protein Input-->
+                    <div class="form-group">
+                        <label for="protein">Protein</label>
+                        <input type="text" class="form-control" placeholder="Amount" id="protein" />
+                    </div>
+                    <!--Fat Count Input-->
+                    <div class="form-group">
+                        <label for="fatCount">Fat Count</label>
+                        <input type="text" class="form-control" placeholder="Amount" id="fatCount" />
+                    </div>
+                    <!--Carbohydrates Input-->
+                    <div class="form-group">
+                        <label for="carbohydrates">Carbohydrates</label>
+                        <input type="text" class="form-control" placeholder="Amount" id="carbohydrates" />
+                    </div>
+                    <!--Submit button-->
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary" style="background-color: rgb(238, 75, 18)">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

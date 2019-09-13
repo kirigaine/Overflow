@@ -35,7 +35,7 @@
                 @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
             </li>
             <li class="nav-item @Html.IsActive("Home", "advSearch")">
-                @Html.ActionLink("My Inventory", "advSearch", null, new { @class = "nav-link" })
+                @Html.ActionLink("My Inventory", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })
             </li>
             <!--Account Dropdown-->
             <li class="nav-item dropdown">
@@ -75,3 +75,6 @@
         <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
     </footer>
 </div>
+
+<!--Advanced search modal-->
+@Html.Partial("~/Views/Shared/advSearchModal.cshtml")

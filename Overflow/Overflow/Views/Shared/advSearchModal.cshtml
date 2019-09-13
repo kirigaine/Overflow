@@ -42,26 +42,61 @@
 
                         </select>
                     </div>
-                    <!--Calories Input-->
-                    <div class="form-group">
-                        <label for="calories">Calories</label>
-                        <input type="text" class="form-control" placeholder="Amount" id="calories" />
+
+                    <div class="container" style="padding: 0">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6">
+                                <!--Calories Input-->
+
+                                <label for="calories">Calories</label>
+
+                                <div class="input-group" id="calories">
+                                    <input type="text" class="form-control" placeholder="Min" />
+                                    <span class="input-group-text">-</span>
+                                    <input type="text" class="form-control" placeholder="Max" />
+                                </div>
+                            </div>
+                            <!--Protein Input-->
+                            <div class="col-lg-6">
+                                <label for="protein">Protein</label>
+                                <div class="input-group" id="protein">
+                                    <input type="text" class="form-control" placeholder="Min" pattern="[0-9]" />
+                                    <span class="input-group-text">-</span>
+                                    <input type="text" class="form-control" placeholder="Max" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!--Protein Input-->
-                    <div class="form-group">
-                        <label for="protein">Protein</label>
-                        <input type="text" class="form-control" placeholder="Amount" id="protein" />
+
+                    <br />
+
+                    <div class="container" style="padding: 0">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6">
+                                <!--Fat Count Input-->
+
+                                <label for="fatCount">Fat Count</label>
+
+                                <div class="input-group" id="fatCount">
+                                    <input type="text" class="form-control" placeholder="Min" />
+                                    <span class="input-group-text">-</span>
+                                    <input type="text" class="form-control" placeholder="Max" />
+                                </div>
+                            </div>
+                            <!--Carbohydrates Input-->
+                            <div class="col-lg-6">
+                                <label for="carbohydrates">Carbohydrates</label>
+                                <div class="input-group" id="protein">
+                                    <input type="text" class="form-control" placeholder="Min" />
+                                    <span class="input-group-text">-</span>
+                                    <input type="text" class="form-control" placeholder="Max" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!--Fat Count Input-->
-                    <div class="form-group">
-                        <label for="fatCount">Fat Count</label>
-                        <input type="text" class="form-control" placeholder="Amount" id="fatCount" />
-                    </div>
-                    <!--Carbohydrates Input-->
-                    <div class="form-group">
-                        <label for="carbohydrates">Carbohydrates</label>
-                        <input type="text" class="form-control" placeholder="Amount" id="carbohydrates" />
-                    </div>
+
+                    <br />
+                   
                     <!--Submit button-->
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary" style="background-color: rgb(238, 75, 18)">Submit</button>

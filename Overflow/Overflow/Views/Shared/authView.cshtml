@@ -4,68 +4,74 @@
 }
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!--Logo-->
-    <a class="navbar-brand" href="/Home/Index">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!--Logo-->
+        <a class="navbar-brand" href="/Home/Index">
 
-        <img src="~/Content/mockup2.png" id="navLogo" />
-    </a>
-    <button class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <!--Navbar Items-->
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ">
-            <!--Home-->
-            <li class="nav-item @Html.IsActive("Home", "Index")">
-                @Html.ActionLink("Home", "Index", null, new { @class = "nav-link" })
-            </li>
-            <!--New Recipes-->
-            <li class="nav-item @Html.IsActive("Home", "NewRecipes")">
-                @Html.ActionLink("New Recipes", "NewRecipes", null, new { @class = "nav-link" })
-            </li>
-            <!--Advanced Search-->
-            <li class="nav-item @Html.IsActive("Home", "advSearch")">
-                @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
-            </li>
-            <li class="nav-item @Html.IsActive("Home", "advSearch")">
-                @Html.ActionLink("My Inventory", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })
-            </li>
-            <!--Account Dropdown-->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                   href="#"
-                   id="navbarDropdownMenuLink"
-                   role="button"
-                   data-toggle="dropdown"
-                   aria-haspopup="true"
-                   aria-expanded="false">
-                    My Account
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Saved Recipes</a>
-                    <a class="dropdown-item" href="#">My Profile</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <!--Search field-->
-    <form class="form-inline">
-        <input class="form-control mr-sm-2"
-               type="search"
-               placeholder="Search"
-               aria-label="Search" />
-        <button class="btn btn-outline my-2 my-sm-0" type="submit">
-            Search
+            <img src="~/Content/mockup2.png" id="navLogo" />
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-    </form>
-</nav>
+        <!--Navbar Items-->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ">
+                <!--Home-->
+                <li class="nav-item @Html.IsActive("Home", "Index")">
+                    @Html.ActionLink("Home", "Index", null, new { @class = "nav-link" })
+                </li>
+                <!--Advanced Search-->
+                <li class="nav-item @Html.IsActive("Home", "advSearch")">
+                    @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item @Html.IsActive("Home", "advSearch")">
+                    @Html.ActionLink("My Inventory", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })
+                </li>
+                <!--Account Dropdown-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="navbarDropdownMenuLink"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        My Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Saved Recipes</a>
+                        <a class="dropdown-item" href="#">My Profile</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--Search field-->
+        <form class="form-inline">
+            <table>
+                <tr>
+                    <td>
+                        <input class="form-control mr-sm-2"
+                               type="search"
+                               placeholder="Search"
+                               aria-label="Search" />
+                    </td>
+                    <td>
+                        <button class="btn btn-outline my-2 my-sm-0" type="submit">
+                            Search
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <p>Welcome, {name}!</p>
+        <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)">Log Out</button>
+    </nav>
 <div class="container body-content">
     <!--Rendering HTML-->
     @RenderBody()
@@ -75,6 +81,5 @@
         <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
     </footer>
 </div>
-
 <!--Advanced search modal-->
 @Html.Partial("~/Views/Shared/advSearchModal.cshtml")

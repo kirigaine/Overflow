@@ -14,20 +14,6 @@ namespace Overflow.Controllers
             return View();
         }
 
-        public ActionResult newRecipes()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult advSearch()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         public ActionResult Login(Login login)
         {
             /* 

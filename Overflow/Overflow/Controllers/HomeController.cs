@@ -51,18 +51,18 @@ namespace Overflow.Controllers
                 con.Open();
             }
 
-            SqlCommand sqlCommand = new SqlCommand("SELECT dbo.fnLoginValidation(@uName, @pass)", con);
-            SqlParameter username = new SqlParameter("@uName", System.Data.SqlDbType.VarChar);
+            SqlCommand sqlCommand = new SqlCommand("SELECT dbo.fnLoginValidation(@uName_param, @pw_param)", con);
+
+            SqlParameter username = new SqlParameter("@uName_param", System.Data.SqlDbType.VarChar);
             username.Value = uName;
-            SqlParameter password = new SqlParameter("@pass", System.Data.SqlDbType.VarChar);
+            SqlParameter password = new SqlParameter("@pw_param", System.Data.SqlDbType.VarChar);
             password.Value = pass;
 
-            object a = new Object();
-            int x;
+            sqlCommand.Parameters.Add(username);
+            sqlCommand.Parameters.Add(password);
 
-            a = sqlCommand.ExecuteScalar();
+            return (int)sqlCommand.ExecuteScalar();
 
-            return 0;
         }
     }
 }

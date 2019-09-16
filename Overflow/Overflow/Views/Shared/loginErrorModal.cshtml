@@ -3,9 +3,9 @@
     ViewBag.Title = "Login";
 }
 
-@using (Html.BeginForm("Index", "Home"))
+@using (Html.BeginForm("Login", "Home"))
 {
-    <div class="modal fade" id="logInModal">
+    <div class="modal fade" id="logInErrorModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -13,6 +13,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
+                    <div class="text-center bg-warning">Incorrect username/password</div>
                     <form>
                         <!--Email input-->
                         <div class="form-group">
@@ -22,13 +23,10 @@
                         <!--Password input-->
                         <div class="form-group">
                             <label for="passwd">Password</label>
-                            @Html.TextBoxFor(l => l.Pass, new { @class = "form-control", @type="password" })
+                            @Html.TextBoxFor(l => l.Pass, new { @class = "form-control", @type = "password" })
                         </div>
                         <!--Submit button-->
-                        <div class="text-right">
-                            <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
-                        </div>
-                        <span data-target="#logInModal" data-toggle="modal"></span>
+                        <button type="submit" class="btn" style="background-color: rgb(238, 75, 18)">Submit</button>
                     </form>
                 </div>
             </div>

@@ -9,5 +9,6 @@ namespace Overflow.Models
     {
         public string Email { get; set; }
         public string Pass { get; set; }
+        public bool isLoggedIn { get; set; }
     }
 }

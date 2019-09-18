@@ -11,6 +11,6 @@ namespace Overflow.Models
         public string Pass { get; set; }
         public bool? IsLoggedIn { get; set; }
 
-        public bool? LoginFlag { get; set; }
+        public bool LoginFlag { get; set; }
     }
 }

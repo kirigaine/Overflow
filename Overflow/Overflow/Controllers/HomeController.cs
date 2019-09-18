@@ -17,14 +17,24 @@ namespace Overflow.Controllers
 
         public ActionResult Login(Login login)
         {
+            login.IsLoggedIn = false;
             /* 
              Use login.Email to access email entered, and login.Pass to access password entered.
              If email does not pass the required criteria, return a error modal.
              Else, call query to access db.
              
              */
+            
             int result = Auth_Login(login.Email, login.Pass);
-            return Content(login.Email + login.Pass);
+
+            if (result == 0)
+            {
+                login.IsLoggedIn = false;
+                login.LoginFlag = true;
+                //return PartialView("~/Views/Shared/loginErrorModal.cshtml", login);
+               return View("~/Views/Shared/loginErrorModal.cshtml", login);
+            }
+            return Content("hi");
         }
 
         public int Auth_Login(String uName, String pass)

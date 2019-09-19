@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Overflow.Models.Login
+
+@{
     ViewBag.Title = "Home";
 }
 
@@ -22,5 +24,21 @@
 </head>
 <body>
     <h1>Home</h1>
+
+    @try
+    {
+        if(Model.LoginFlag == true)
+        {
+            <script>
+                $(window).on('load', function () {
+                    $('#loginModal').modal('show');
+                })
+            </script>
+        }
+    } catch(ArgumentNullException ex)
+    {
+
+    }
+
 </body>
 </html>

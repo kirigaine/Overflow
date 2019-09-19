@@ -12,7 +12,7 @@ namespace Overflow.Controllers
     {
         public ActionResult Index(Login login)
         {
-            login.LoginFlag = true;
+            login.LoginFlag = false;
             return View(login);
         }
 
@@ -33,7 +33,7 @@ namespace Overflow.Controllers
                 login.IsLoggedIn = false;
                 login.LoginFlag = true;
                 //return PartialView("~/Views/Shared/loginErrorModal.cshtml", login);
-               return View("~/Views/Shared/loginModal.cshtml", login);
+               return View("~/Views/Home/Index.cshtml", login);
             }
             return Content("hi");
         }

@@ -25,20 +25,15 @@
 <body>
     <h1>Home</h1>
 
-    @try
+    @if (Model.LoginFlag == true)
     {
-        if(Model.LoginFlag == true)
-        {
-            <script>
-                $(window).on('load', function () {
-                    $('#loginModal').modal('show');
-                })
-            </script>
-        }
-    } catch(ArgumentNullException ex)
-    {
-
+        <script type="text/javascript">
+            $(window).on('load', function () {
+                $('#logInModal').modal('show');
+            });
+        </script>
     }
 
 </body>
 </html>
+@Html.Partial("~/Views/Shared/loginModal.cshtml")

@@ -35,7 +35,12 @@ namespace Overflow.Controllers
                 //return PartialView("~/Views/Shared/loginErrorModal.cshtml", login);
                return View("~/Views/Home/Index.cshtml", login);
             }
-            return Content("hi");
+            else if(result == 1)
+            {
+                login.IsLoggedIn = true;
+                return View("~/Views/Home/Index.cshtml", login);
+            }
+            return View("~/Views/Home/Index.cshtml", login);
         }
 
         public int Auth_Login(String uName, String pass)

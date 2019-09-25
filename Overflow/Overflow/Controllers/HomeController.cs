@@ -69,6 +69,8 @@ namespace Overflow.Controllers
 
         public ActionResult Signup(Login login)
         {
+            login.ErrorMessage = "";
+
             var connection = System.Configuration.ConfigurationManager.ConnectionStrings["OverflowDB"].ConnectionString;           
             SqlConnection con = new SqlConnection(connection);
 
@@ -89,7 +91,8 @@ namespace Overflow.Controllers
               
             if ((int)sqlCommand.ExecuteScalar() == 1)
             {
-                return Content("username already exist"); // This needs to be adjusted in modal 
+                login.ErrorMessage = "Username already exist";
+                return View("~/Views/Home/Index.cshtml", login); // This needs to be adjusted in modal 
             }
 
             SqlCommand addUser = new SqlCommand("dbo.insertNewAccountProc", con);

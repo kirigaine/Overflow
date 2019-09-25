@@ -34,6 +34,15 @@
         </script>
     }
 
+    @if (Model.ErrorMessage.Length > 1)
+    {
+        <script type="text/javascript">
+            $(window).on('load', function () {
+                $('#signUpModal').modal('show');
+            });
+        </script>
+    }
+
 </body>
 </html>
 @Html.Partial("~/Views/Shared/loginModal.cshtml")

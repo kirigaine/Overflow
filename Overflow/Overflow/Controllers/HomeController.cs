@@ -20,6 +20,7 @@ namespace Overflow.Controllers
         public ActionResult Login(Login login)
         {
             login.IsLoggedIn = false;
+            login.ErrorMessage = "";
             /* 
              Use login.Email to access email entered, and login.Pass to access password entered.
              If email does not pass the required criteria, return a error modal.

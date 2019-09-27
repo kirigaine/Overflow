@@ -27,20 +27,41 @@ namespace Overflow.Controllers
              Else, call query to access db.
              
              */
-            
-            int result = Auth_Login(login.Email, login.Pass);
 
-            if (result == 0)
+            try
             {
+
+                System.Net.Mail.MailAddress userEmail = new System.Net.Mail.MailAddress(login.Email);
+                if (userEmail.Address == login.Email)
+                {
+                    int result = Auth_Login(login.Email, login.Pass);
+
+                    if (result == 0)
+                    {
+                        login.IsLoggedIn = false;
+                        login.LoginFlag = true;
+                        return View("~/Views/Home/Index.cshtml", login);
+                    }
+
+                    else if (result == 1)
+                    {
+                        login.IsLoggedIn = true;
+                        return View("~/Views/Home/Index.cshtml", login);
+                    }
+
+
+                }
+
+            }
+            catch
+            {
+                Console.WriteLine("Invalid email format");
                 login.IsLoggedIn = false;
                 login.LoginFlag = true;
-               return View("~/Views/Home/Index.cshtml", login);
-            }
-            else if(result == 1)
-            {
-                login.IsLoggedIn = true;
+                //return PartialView("~/Views/Shared/loginErrorModal.cshtml", login);
                 return View("~/Views/Home/Index.cshtml", login);
             }
+
             return View("~/Views/Home/Index.cshtml", login);
         }
 

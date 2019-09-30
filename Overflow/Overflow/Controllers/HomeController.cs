@@ -110,12 +110,47 @@ namespace Overflow.Controllers
 
             sqlCommand.Parameters.Add(username);
             sqlCommand.Parameters.Add(password);
-              
-            if ((int)sqlCommand.ExecuteScalar() == 1)
+
+            // Validate email as well as duplicacy
+            try
             {
-                login.ErrorMessage = "Username already exist";
-                return View("~/Views/Home/Index.cshtml", login); // This needs to be adjusted in modal 
+                System.Net.Mail.MailAddress userEmail = new System.Net.Mail.MailAddress(login.Email);
+                if (userEmail.Address == login.Email)
+                {
+                    if ((int)sqlCommand.ExecuteScalar() == 1)
+                    {
+                        login.ErrorMessage = "Username already exist";
+                        return View("~/Views/Home/Index.cshtml", login); // This needs to be adjusted in modal 
+                    }
+                }
             }
+            catch
+            {
+                login.ErrorMessage = "Invalid email format";
+                return View("~/Views/Home/Index.cshtml", login);
+            }
+
+            // Declare Regex patterns
+            System.Text.RegularExpressions.Regex nameRegex = new System.Text.RegularExpressions.Regex("^[A-Za-z]{1,15}(-|'){0,1}[A-Za-z]{1,15}$");
+            System.Text.RegularExpressions.Regex passwordRegex = new System.Text.RegularExpressions.Regex(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#\$%\&*-])[A-Za-z\d!@#$%&*-]{8,20}$");
+            System.Text.RegularExpressions.Match fnameMatch = nameRegex.Match(login.FirstName);
+            System.Text.RegularExpressions.Match lnameMatch = nameRegex.Match(login.LastName);
+            System.Text.RegularExpressions.Match passwordMatch = passwordRegex.Match(login.Pass);
+            System.Text.RegularExpressions.Match sndpasswordMatch = passwordRegex.Match(login.SecondPass);
+
+            if ((!fnameMatch.Success) || (!lnameMatch.Success)){
+                login.ErrorMessage = "Invalid name format";
+                return View("~/Views/Home/Index.cshtml", login);
+            }
+          
+            if ((!passwordMatch.Success) || (!sndpasswordMatch.Success))
+            {
+                login.ErrorMessage = "Invalid password format";
+                return View("~/Views/Home/Index.cshtml", login);
+            }
+
+            
+          
 
             SqlCommand addUser = new SqlCommand("dbo.insertNewAccountProc", con);
             addUser.CommandType = System.Data.CommandType.StoredProcedure;

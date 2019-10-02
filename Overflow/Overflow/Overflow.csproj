@@ -172,6 +172,7 @@
     <Content Include="Views\Shared\unAuthView.cshtml" />
     <Content Include="Views\Shared\advSearchModal.cshtml" />
     <Content Include="Views\Shared\advSearch.cshtml" />
+    <Content Include="Views\Home\inventory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

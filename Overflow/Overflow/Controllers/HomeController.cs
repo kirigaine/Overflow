@@ -181,7 +181,13 @@ namespace Overflow.Controllers
 
            
 
-            return View("~/Views/Home/Index.cshtml", login);
+            return View("", login);
+        }
+        public ActionResult inventory(Login login){
+            login.IsLoggedIn = false;
+            return View("~/Views/Home/inventory.cshtml", login);
         }
     }
+
+
 }

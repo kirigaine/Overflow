@@ -31,6 +31,9 @@
             <li class="nav-item @Html.IsActive("Home", "advSearch")">
                 @Html.ActionLink("Advanced Search", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })
             </li>
+            <li class="nav-item @Html.IsActive("Home", "inventory")">
+                @Html.ActionLink("My Inventory", "inventory", null, new { @class = "nav-link" })
+            </li>
         </ul>
     </div>
     <!--Search field-->

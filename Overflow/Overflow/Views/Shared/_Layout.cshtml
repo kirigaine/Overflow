@@ -14,15 +14,28 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/overflow.css" rel="stylesheet" />
+    @try {
+        if (Model.LoginFlag == true) {
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            $('#loginErrorModal').modal('show');
+    </script>
+        }
+    }
+    catch (NullReferenceException error){
+    }
+
+
+
 </head>
-<body style="background-color: dimgrey">
+<body>
     @if (Model.IsLoggedIn == true)
     {
-        @Html.Partial("~/Views/Shared/authView.cshtml")
+    @Html.Partial("~/Views/Shared/authView.cshtml")
     }
     else
     {
-        @Html.Partial("~/Views/Shared/unAuthView.cshtml")
+    @Html.Partial("~/Views/Shared/unAuthView.cshtml")
     }
 
     <div class="container body-content">

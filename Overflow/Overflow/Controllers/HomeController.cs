@@ -46,6 +46,8 @@ namespace Overflow.Controllers
                     else if (result == 1)
                     {
                         login.IsLoggedIn = true;
+                        Session["username"] = login.Email;
+
                         return View("~/Views/Home/Index.cshtml", login);
                     }
 
@@ -93,7 +95,7 @@ namespace Overflow.Controllers
         {
             login.ErrorMessage = "";
 
-            var connection = System.Configuration.ConfigurationManager.ConnectionStrings["OverflowDB"].ConnectionString;           
+            var connection = System.Configuration.ConfigurationManager.ConnectionStrings["OverflowDB"].ConnectionString;
             SqlConnection con = new SqlConnection(connection);
 
             if (con.State == System.Data.ConnectionState.Closed)
@@ -138,19 +140,20 @@ namespace Overflow.Controllers
             System.Text.RegularExpressions.Match passwordMatch = passwordRegex.Match(login.Pass);
             System.Text.RegularExpressions.Match sndpasswordMatch = passwordRegex.Match(login.SecondPass);
 
-            if ((!fnameMatch.Success) || (!lnameMatch.Success)){
+            if ((!fnameMatch.Success) || (!lnameMatch.Success))
+            {
                 login.ErrorMessage = "Invalid name format";
                 return View("~/Views/Home/Index.cshtml", login);
             }
-          
+
             if ((!passwordMatch.Success) || (!sndpasswordMatch.Success))
             {
                 login.ErrorMessage = "Invalid password format";
                 return View("~/Views/Home/Index.cshtml", login);
             }
 
-            
-          
+
+
 
             SqlCommand addUser = new SqlCommand("dbo.insertNewAccountProc", con);
             addUser.CommandType = System.Data.CommandType.StoredProcedure;
@@ -164,7 +167,7 @@ namespace Overflow.Controllers
             SqlParameter lastName = new SqlParameter("@lName_proc_param", System.Data.SqlDbType.VarChar);
             lastName.Value = login.LastName;
 
-            if(login.Pass != login.SecondPass)
+            if (login.Pass != login.SecondPass)
             {
                 login.ErrorMessage = "Passwords do not match";
             }
@@ -179,15 +182,9 @@ namespace Overflow.Controllers
                 addUser.ExecuteNonQuery();
             }
 
-           
 
-            return View("", login);
-        }
-        public ActionResult inventory(Login login){
-            login.IsLoggedIn = false;
-            return View("~/Views/Home/inventory.cshtml", login);
+
+            return View("~/Views/Home/Index.cshtml", login);
         }
     }
-
-
 }

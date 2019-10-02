@@ -27,7 +27,7 @@
                 </li>
                 <!--Advanced Search-->
                 <li class="nav-item @Html.IsActive("Home", "advSearch")">
-                    @Html.ActionLink("Advanced Search", "advSearch", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Advanced Search", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })
                 </li>
                 <li class="nav-item @Html.IsActive("Home", "advSearch")">
                     @Html.ActionLink("My Inventory", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })
@@ -68,17 +68,9 @@
                 </tr>
             </table>
         </form>
-        <p>Welcome, {name}!</p>
+        <p class="text-xl-center">Welcome, {name}!</p>
         <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)">Log Out</button>
     </nav>
-<div class="container body-content">
-    <!--Rendering HTML-->
-    @RenderBody()
-    <hr />
-    <!--Footer-->
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
-    </footer>
-</div>
+
 <!--Advanced search modal-->
 @Html.Partial("~/Views/Shared/advSearchModal.cshtml")

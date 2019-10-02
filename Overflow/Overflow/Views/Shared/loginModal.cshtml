@@ -13,16 +13,27 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
+                    @try
+                    {
+                        if (Model.IsLoggedIn == false)
+                        {
+                            <div class="text-center bg-warning">Incorrect username/password</div>
+                        }
+                    }
+                    catch (NullReferenceException nx)
+                    {
+
+                    }
                     <form>
                         <!--Email input-->
-                        <div class="form-group">
+                        <div class="form-group">  
                             <label for="email">Email</label>
                             @Html.TextBoxFor(l => l.Email, new { @class = "form-control" })
                         </div>
                         <!--Password input-->
                         <div class="form-group">
                             <label for="passwd">Password</label>
-                            @Html.TextBoxFor(l => l.Pass, new { @class = "form-control", @type="password" })
+                            @Html.TextBoxFor(l => l.Pass, new { @class = "form-control", @type = "password" })
                         </div>
                         <!--Submit button-->
                         <div class="text-right">

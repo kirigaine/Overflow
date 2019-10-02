@@ -1,8 +1,9 @@
-﻿
+﻿@model Overflow.Models.Login
 @{
     ViewBag.Title = "Login";
 }
-
+@using (Html.BeginForm("Signup", "Home"))
+{
     <div class="modal fade" id="signUpModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -11,31 +12,42 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
+                    @try
+                    {
+                        if (Model.ErrorMessage.Length > 1)
+                        {
+                            <div class="text-center bg-warning">@Model.ErrorMessage</div>
+                        }
+                    }
+                    catch (NullReferenceException nx)
+                    {
+
+                    }
                     <form>
                         <!--First name input-->
                         <div class="form-group">
                             <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" placeholder="Enter your first name" class="form-control" />
+                            @Html.TextBoxFor(l => l.FirstName, new { @class = "form-control" })
                         </div>
                         <!--Last name input-->
                         <div class="form-group">
                             <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" placeholder="Enter your last name" class="form-control" />
+                            @Html.TextBoxFor(l => l.LastName, new { @class = "form-control" })
                         </div>
                         <!--Email input-->
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" placeholder="Enter your email" />
+                            @Html.TextBoxFor(l => l.Email, new { @class = "form-control" })
                         </div>
                         <!--Password input-->
                         <div class="form-group">
                             <label for="passwd">Password</label>
-                            <input type="password" class="form-control" id="passwd" placeholder="Password">
+                            @Html.TextBoxFor(l => l.Pass, new { @class = "form-control" })
                         </div>
                         <!--Password verification-->
                         <div class="form-group">
                             <label for="passwdVerify">Verify Password</label>
-                            <input type="password" class="form-control" id="passwdVerify" placeholder="Verify your password" />
+                            @Html.TextBoxFor(l => l.SecondPass, new { @class = "form-control" })
                         </div>
                         <!--Submit button-->
                         <div class="text-right">
@@ -46,4 +58,4 @@
             </div>
         </div>
     </div>
-
+}

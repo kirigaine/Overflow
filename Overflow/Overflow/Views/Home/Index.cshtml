@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Overflow.Models.Login
+
+@{
     ViewBag.Title = "Home";
 }
 
@@ -22,5 +24,25 @@
 </head>
 <body>
     <h1>Home</h1>
+
+    @if (Model.LoginFlag == true)
+    {
+        <script type="text/javascript">
+            $(window).on('load', function () {
+                $('#logInModal').modal('show');
+            });
+        </script>
+    }
+
+    @if (Model.ErrorMessage.Length > 1)
+    {
+        <script type="text/javascript">
+            $(window).on('load', function () {
+                $('#signUpModal').modal('show');
+            });
+        </script>
+    }
+
 </body>
 </html>
+@Html.Partial("~/Views/Shared/loginModal.cshtml")

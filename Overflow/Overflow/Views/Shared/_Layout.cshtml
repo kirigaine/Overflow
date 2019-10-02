@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    @if (User.Identity.IsAuthenticated)
+    @if (Model.IsLoggedIn == true)
     {
     @Html.Partial("~/Views/Shared/authView.cshtml")
     }

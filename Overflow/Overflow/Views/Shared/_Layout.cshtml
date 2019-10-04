@@ -29,8 +29,7 @@
 
 </head>
 <body>
-    @if (Model.IsLoggedIn == true)
-    {
+    @if (Session["username"] != null)   {
     @Html.Partial("~/Views/Shared/authView.cshtml")
     }
     else

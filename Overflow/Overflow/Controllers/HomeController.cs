@@ -186,6 +186,12 @@ namespace Overflow.Controllers
 
             return View("~/Views/Home/Index.cshtml", login);
         }
+        public ActionResult inventory()
+        {
+            Login login = new Login();
+            return View("inventory", login);
+        }
+    }
 
         public ActionResult Logout()
         {
@@ -197,10 +203,4 @@ namespace Overflow.Controllers
         }
 
      }
-        public ActionResult inventory()
-        {
-            Login login = new Login();
-            return View("inventory", login);
-        }
-    }
 }

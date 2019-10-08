@@ -72,7 +72,7 @@
         @{string username = Session["username"].ToString(); }
         Welcome, @username!
     </p>
-    <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)">Log Out</button>
+    <button class="btn btn-orange m-2" style="background-color: rgb(238, 75, 18)" onclick="location.href='@Url.Action("Logout", "Home")'">Log Out</button>
 </nav>
 
 <!--Advanced search modal-->

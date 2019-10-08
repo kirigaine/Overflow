@@ -186,6 +186,17 @@ namespace Overflow.Controllers
 
             return View("~/Views/Home/Index.cshtml", login);
         }
+
+        public ActionResult Logout()
+        {
+            Login login = new Login();
+            login.LoginFlag = false;
+            login.ErrorMessage = "";
+            Session["username"] = null;
+            return View("~/Views/Home/Index.cshtml", login);
+        }
+
+     }
         public ActionResult inventory()
         {
             Login login = new Login();

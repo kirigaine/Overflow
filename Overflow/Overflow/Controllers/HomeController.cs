@@ -193,6 +193,12 @@ namespace Overflow.Controllers
             Session["username"] = null;
             return View("~/Views/Home/Index.cshtml", login);
         }
+
+        public ActionResult Inventory()
+        {
+            Login login = new Login();
+            return View("~/Views/Inventory/inventory.cshtml", login);
+        }
     }
      
 }

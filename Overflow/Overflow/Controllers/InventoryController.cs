@@ -10,7 +10,7 @@ namespace Overflow.Controllers
     public class InventoryController : Controller
     {
         // GET: Inventory
-        public ActionResult Index()
+        public ActionResult Inventory()
         {
             Login login = new Login();
             return View("~/Views/Inventory/inventory.cshtml", login);

@@ -62,7 +62,7 @@
     </head>
     <body>
         <h1>Inventory</h1>
-        <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar" style="padding-bottom: 0px">
+        <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar" style="padding-bottom: 0px; border-radius: 25px">
             <table class="table table-striped table-light" style="height: 60%; color: #212529; width: inherit">
                 <thead style="width: inherit">
                     <tr>
@@ -77,12 +77,11 @@
 
         </div>
         <br>
-        <table class="table table-striped table-light" style="padding-top: 0px">
-            <tr>
-                <th scope="col"><input type="text" placeholder="Add New Ingredient" /></th>
-                <td></td>
-                <td scope="col" class="select"><input type="button" value="Add" /></td>
-            </tr>
-        </table>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Add ingredient" aria-label="Add ingredient" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-dark" type="button" id="addBtn">Button</button>
+            </div>
+        </div>
     </body>
 

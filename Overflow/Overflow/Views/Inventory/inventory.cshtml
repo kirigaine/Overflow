@@ -2,14 +2,14 @@
 @{
     ViewBag.Title = "inventory";
 }
-<head>
+    <head>
         <title>Overflow</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet"
-                href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-                crossorigin="anonymous" />
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous" />
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
                 crossorigin="anonymous"></script>
@@ -17,8 +17,72 @@
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
         <link href="~/Content/overflow.css" rel="stylesheet" />
-</head>
-<body>
-    <h1>Inventory</h1>
-</body>
+
+        <style type="text/css">
+            td {
+                float: left;
+            }
+
+            .select {
+                float: right;
+            }
+            .my-custom-scrollbar 
+            {
+            position: relative;
+            height: 540px;
+            overflow: auto;
+            }
+
+            .table-wrapper-scroll-y 
+            {
+            display: block;
+            }
+            ::-webkit-scrollbar {
+            display: none;
+            }
+
+        </style>
+
+
+        <script type="text/javascript">
+
+            function start() {
+                let ingredients = ["bread", "bacon", "eggs", "milk", "fennel", "chicken", "beef", "pork", "corn", "noodles", "pepper", "salt", "pork", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato"];
+                table = document.getElementById("inventory");
+                for (let i = 0; i < ingredients.length; i++) {
+                    table.innerHTML += "<tr>\n<th scope='row'>" + (i + 1) + ".</th>\n<td>" + ingredients[i] +
+                        "</td>\n<td class='select'><input type='checkbox' id=" + ingredients[i] + "/></td>\n</tr>\n"
+                }
+            }
+            window.addEventListener("load", start, "false");
+
+        </script>
+
+        
+    </head>
+    <body>
+        <h1>Inventory</h1>
+        <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar" style="padding-bottom: 0px">
+            <table class="table table-striped table-light" style="height: 60%; color: #212529; width: inherit">
+                <thead style="width: inherit">
+                    <tr>
+                        <th scope="col" style="width: 5%"></th>
+                        <th scope="col" style="float:left">Ingredient</th>
+                        <th scope="col" style="float:right">Select All <input type="checkbox" /></th>
+                    </tr>
+                </thead>
+                <tbody id="inventory">
+                </tbody>
+            </table>
+
+        </div>
+        <br>
+        <table class="table table-striped table-light" style="padding-top: 0px">
+            <tr>
+                <th scope="col"><input type="text" placeholder="Add New Ingredient" /></th>
+                <td></td>
+                <td scope="col" class="select"><input type="button" value="Add" /></td>
+            </tr>
+        </table>
+    </body>
 

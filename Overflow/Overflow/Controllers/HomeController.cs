@@ -119,11 +119,11 @@ namespace Overflow.Controllers
                 System.Net.Mail.MailAddress userEmail = new System.Net.Mail.MailAddress(login.Email);
                 if (userEmail.Address == login.Email)
                 {
-                    if ((int)sqlCommand.ExecuteScalar() == 1)
+                  /*  if ((int)sqlCommand.ExecuteScalar() == 1)
                     {
                         login.ErrorMessage = "Username already exist";
                         return View("~/Views/Home/Index.cshtml", login); // This needs to be adjusted in modal 
-                    }
+                    }*/
                 }
             }
             catch

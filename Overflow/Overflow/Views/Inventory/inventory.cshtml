@@ -22,66 +22,43 @@
             td {
                 float: left;
             }
-
-            .select {
-                float: right;
-            }
-            .my-custom-scrollbar 
-            {
-            position: relative;
-            height: 540px;
-            overflow: auto;
-            }
-
-            .table-wrapper-scroll-y 
-            {
-            display: block;
-            }
-            ::-webkit-scrollbar {
-            display: none;
-            }
-
         </style>
-
-
         <script type="text/javascript">
-
             function start() {
                 let ingredients = ["bread", "bacon", "eggs", "milk", "fennel", "chicken", "beef", "pork", "corn", "noodles", "pepper", "salt", "pork", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato"];
                 table = document.getElementById("inventory");
                 for (let i = 0; i < ingredients.length; i++) {
                     table.innerHTML += "<tr>\n<th scope='row'>" + (i + 1) + ".</th>\n<td>" + ingredients[i] +
-                        "</td>\n<td class='select'><input type='checkbox' id=" + ingredients[i] + "/></td>\n</tr>\n"
+                        "</td>\n<td class='select' style='float:right'><input type='checkbox' id='" + (i+1) + "'/></td>\n</tr>\n"
                 }
+                slctAll = document.getElementById("selectAll");
             }
             window.addEventListener("load", start, "false");
-
         </script>
-
-        
     </head>
-    <body>
-        <h1>Inventory</h1>
-        <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar" style="padding-bottom: 0px; border-radius: 25px">
-            <table class="table table-striped table-light" style="height: 60%; color: #212529; width: inherit">
-                <thead style="width: inherit">
-                    <tr>
-                        <th scope="col" style="width: 5%"></th>
-                        <th scope="col" style="float:left">Ingredient</th>
-                        <th scope="col" style="float:right">Select All <input type="checkbox" /></th>
-                    </tr>
-                </thead>
-                <tbody id="inventory">
-                </tbody>
-            </table>
-
-        </div>
-        <br>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Add ingredient" aria-label="Add ingredient" aria-describedby="button-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-dark" type="button" id="addBtn">Button</button>
+    <body style="height: inherit; padding-top: 10px; width:60%">
+        <h1 style="padding-left: 10px; color: #212529">Inventory</h1>
+        <div style="background-color: white; border-radius: 5px; height: 70%">
+            <div class="table-responsive" style="border-radius: 5px; height: 100%">
+                <table class="table table-striped table-light" style="color: #212529; width: inherit; height: inherit">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 5%"></th>
+                            <th scope="col" style="float:left">Ingredient</th>
+                            <th scope="col" style="float:right">Select All <input type="checkbox" id="selectAll" onclick="selectAll()"/></th>
+                            <th style="float:right"><input type="button" class="btn btn-dark" value="Delete Selected" /></th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory">
+                    </tbody>
+                </table>
             </div>
         </div>
+        <div class="input-group">
+                <input type="text" class="form-control" placeholder="Add ingredient" aria-label="Add ingredient" aria-describedby="button-addon2" id="addedIngr">
+                <div class="input-group-append">
+                    <button class="btn btn-dark" type="button" id="addBtn">Add</button>
+                </div>
+            </div>
     </body>
 

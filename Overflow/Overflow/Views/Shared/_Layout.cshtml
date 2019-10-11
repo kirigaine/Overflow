@@ -1,6 +1,6 @@
 ﻿@model Overflow.Models.Login
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
 <head>
     <title>Overflow - @ViewBag.Title</title>
     <meta charset="utf-8" />
@@ -28,7 +28,7 @@
 
 
 </head>
-<body style="background-color: grey; color: beige">
+<body style="background-color: grey; color: beige; height: 100%">
     @if (Session["username"] != null)   {
      @Html.Partial("~/Views/Shared/authView.cshtml")
     }
@@ -37,7 +37,7 @@
     @Html.Partial("~/Views/Shared/unAuthView.cshtml")
     }
 
-    <div class="container body-content">
+    <div class="container body-content" style="height:80%; padding-top: 10px; padding-bottom: 0px;">
         <!--Rendering HTML-->
         @RenderBody()
         <hr />

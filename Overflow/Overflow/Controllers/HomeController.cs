@@ -50,8 +50,6 @@ namespace Overflow.Controllers
 
                         return View("~/Views/Home/Index.cshtml", login);
                     }
-
-
                 }
 
             }
@@ -105,7 +103,7 @@ namespace Overflow.Controllers
 
             SqlCommand sqlCommand = new SqlCommand("SELECT dbo.uName_Check(@uName_param, @pw_param)", con);
 
-            SqlParameter username = new SqlParameter("@uName_param", System.Data.SqlDbType.VarChar);
+            SqlParameter username =   new SqlParameter("@uName_param", System.Data.SqlDbType.VarChar);
             username.Value = login.Email;
             SqlParameter password = new SqlParameter("@pw_param", System.Data.SqlDbType.VarChar);
             password.Value = "";
@@ -152,9 +150,6 @@ namespace Overflow.Controllers
                 return View("~/Views/Home/Index.cshtml", login);
             }
 
-
-
-
             SqlCommand addUser = new SqlCommand("dbo.insertNewAccountProc", con);
             addUser.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -183,7 +178,6 @@ namespace Overflow.Controllers
             }
             return View("~/Views/Home/Index.cshtml", login);
         }
-
 
         public ActionResult Logout()
         {

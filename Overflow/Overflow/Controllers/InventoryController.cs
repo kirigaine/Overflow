@@ -42,7 +42,7 @@ namespace Overflow.Controllers
             }
 
             // Login login = new Login();
-            return View("~/Views/Inventory/inventory.cshtml");
+            return View("~/Views/Inventory/inventory.cshtml", inventory);
         }
 
         public ActionResult AddItem(Inventory inventory)

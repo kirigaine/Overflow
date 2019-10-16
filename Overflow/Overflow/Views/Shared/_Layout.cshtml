@@ -1,4 +1,4 @@
-﻿@model Overflow.Models.Login
+﻿
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
@@ -14,18 +14,6 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/overflow.css" rel="stylesheet" />
-    @try {
-        if (Model.LoginFlag == true) {
-    <script type="text/javascript">
-        $(window).on('load', function () {
-            $('#loginErrorModal').modal('show');
-    </script>
-        }
-    }
-    catch (NullReferenceException error){
-    }
-
-
 
 </head>
 <body style="background-color: grey; color: beige; height: 100%">

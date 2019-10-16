@@ -5,6 +5,21 @@
 }
 
 <!--Navbar-->
+
+@try
+{
+    if (Model.LoginFlag == true)
+    {
+        <script type="text/javascript">
+            $(window).on('load', function () {
+                $('#loginErrorModal').modal('show');
+        </script>
+    }
+}
+catch (NullReferenceException error)
+{
+}
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!--Logo-->
     <a class="navbar-brand" href="/Home/Index">
@@ -47,9 +62,9 @@
 @if (Model.LoginFlag == true)
 {
     <script>
-            $(window).on('load', function () {
-                $('#loginModal').modal('show');
-            })
+        $(window).on('load', function () {
+            $('#loginModal').modal('show');
+        })
     </script>
 }
 <!--Sign up modal-->

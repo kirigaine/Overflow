@@ -24,10 +24,39 @@
             }
         </style>
         <script type="text/javascript">
-
             let count = 0;
             function start() {
-                let ingredients = ["tomato"];
+                let ingredients = [""];
+                let listLength = @Model.Ingredients.Count();
+
+                @*var inventory = "@Json.Encode(Model.Ingredients)";
+                console.log(inventory);
+                console.log(typeof (inventory));*@
+
+                //for (var i in inventory) {
+                //    ingredients.push([i, inventory[i]]);
+                //}
+
+            @*for(let i = 0; i < listLength; i++) {
+
+                @{ 
+                    int x = 0;
+                }
+
+                ingredients[i] = "@Model.Ingredients[x]";
+                @Model.Zero += 1;
+                console.log(ingredients);
+
+                    @{
+                        x++;
+                    }
+
+                }*@
+
+
+                var inventory = JSON.parse(@Model.Ingredients);
+                ingredients = JSON.stringify(inventory);
+                console.log(ingredients);
                 table = document.getElementById("inventory");
                 for (let i = 0; i < ingredients.length; i++) {
                     count++;
@@ -37,6 +66,9 @@
                 }
                 slctAll = document.getElementById("selectAll");
             }
+
+       
+
             function add() {
                var ingredient = document.getElementById('addedIngr').value;
                 table = document.getElementById("inventory");

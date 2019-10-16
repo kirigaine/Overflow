@@ -22,47 +22,19 @@
             td {
                 float: left;
             }
-
-            .select {
-                float: right;
-            }
-            .my-custom-scrollbar 
-            {
-            position: relative;
-            height: 540px;
-            overflow: auto;
-            }
-
-            .table-wrapper-scroll-y 
-            {
-            display: block;
-            }
-            ::-webkit-scrollbar {
-            display: none;
-            }
-
         </style>
-
-
         <script type="text/javascript">
-            let count = 1;
 
             function start() {
                 let ingredients = [];
                 table = document.getElementById("inventory");
-               
+                for (let i = 0; i < ingredients.length; i++) {
+                    table.innerHTML += "<tr>\n<th scope='row'>" + (i + 1) + ".</th>\n<td>" + ingredients[i] +
+                        "</td>\n<td class='select' style='float:right'><input type='checkbox' id='" + (i+1) + "'/></td>\n</tr>\n"
+                }
+                slctAll = document.getElementById("selectAll");
             }
             window.addEventListener("load", start, "false");
-
-            function add() {
-                var ingredient = document.getElementById('addedIngr').value;
-                table = document.getElementById("inventory");
-                table.innerHTML += "<tr>\n<th scope='row'>" + count + ".</th>\n<td>" + ingredient +
-                    "</td>\n<td class='select'><input type='checkbox' id=" + ingredient + "/></td>\n</tr>\n"
-                count++;
-                'addedIngr'.placeholder = 'Add';
-            }
-
         </script>
 
         
@@ -85,10 +57,10 @@
         </div>
         <br>
         <div class="input-group">
-            <input type="text" class="form-control" id="addedIngr" value="Add ingredient" placeholder="Add ingredient" aria-label="Add ingredient" aria-describedby="button-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-dark" type="button" id="addBtn" onclick="add()">Add</button>
+                <input type="text" class="form-control" placeholder="Add ingredient" aria-label="Add ingredient" aria-describedby="button-addon2" id="addedIngr">
+                <div class="input-group-append">
+                    <button class="btn btn-dark" type="button" id="addBtn">Add</button>
+                </div>
             </div>
-        </div>
     </body>
 

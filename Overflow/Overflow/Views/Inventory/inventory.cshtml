@@ -25,49 +25,18 @@
         </style>
         <script type="text/javascript">
             let count = 0;
+
             function start() {
-                let ingredients = [""];
-                let listLength = @Model.Ingredients.Count();
-
-                @*var inventory = "@Json.Encode(Model.Ingredients)";
-                console.log(inventory);
-                console.log(typeof (inventory));*@
-
-                //for (var i in inventory) {
-                //    ingredients.push([i, inventory[i]]);
-                //}
-
-            @*for(let i = 0; i < listLength; i++) {
-
-                @{ 
-                    int x = 0;
-                }
-
-                ingredients[i] = "@Model.Ingredients[x]";
-                @Model.Zero += 1;
-                console.log(ingredients);
-
-                    @{
-                        x++;
-                    }
-
-                }*@
-
-
-                var inventory = JSON.parse(@Model.Ingredients);
-                ingredients = JSON.stringify(inventory);
-                console.log(ingredients);
-                table = document.getElementById("inventory");
+                inventory = document.getElementById('inventory');
+                let ingredients = JSON.parse('@Html.Raw(Json.Encode(@Model.Ingredients))');
+                console.log(ingredients[2]);
                 for (let i = 0; i < ingredients.length; i++) {
                     count++;
-                    table.innerHTML += "<tr>\n<th scope='row'>" + count + ".</th>\n<td>" + ingredients[i] +
-                        "</td>\n<td class='select' style='float:right'><input type='checkbox' id='" + ingredients[i] + "'/></td>\n</tr>\n";
-                    
+                    inventory.innerHTML += "<tr>\n<th scope='row'>" + count + ".</th>\n<td>" + ingredients[i] +
+                    "</td>\n<td class='select' style='float:right'><input type='checkbox' id=" + ingredients[i] + "/></td>\n</tr>\n";
                 }
                 slctAll = document.getElementById("selectAll");
             }
-
-       
 
             function add() {
                var ingredient = document.getElementById('addedIngr').value;

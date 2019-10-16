@@ -45,16 +45,23 @@
 
 
         <script type="text/javascript">
+            let count = 1;
 
             function start() {
-                let ingredients = ["bread", "bacon", "eggs", "milk", "fennel", "chicken", "beef", "pork", "corn", "noodles", "pepper", "salt", "pork", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato", "tomato"];
+                let ingredients = [];
                 table = document.getElementById("inventory");
-                for (let i = 0; i < ingredients.length; i++) {
-                    table.innerHTML += "<tr>\n<th scope='row'>" + (i + 1) + ".</th>\n<td>" + ingredients[i] +
-                        "</td>\n<td class='select'><input type='checkbox' id=" + ingredients[i] + "/></td>\n</tr>\n"
-                }
+               
             }
             window.addEventListener("load", start, "false");
+
+            function add() {
+                var ingredient = document.getElementById('addedIngr').value;
+                table = document.getElementById("inventory");
+                table.innerHTML += "<tr>\n<th scope='row'>" + count + ".</th>\n<td>" + ingredient +
+                    "</td>\n<td class='select'><input type='checkbox' id=" + ingredient + "/></td>\n</tr>\n"
+                count++;
+                'addedIngr'.placeholder = 'Add';
+            }
 
         </script>
 
@@ -78,9 +85,9 @@
         </div>
         <br>
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Add ingredient" aria-label="Add ingredient" aria-describedby="button-addon2">
+            <input type="text" class="form-control" id="addedIngr" value="Add ingredient" placeholder="Add ingredient" aria-label="Add ingredient" aria-describedby="button-addon2">
             <div class="input-group-append">
-                <button class="btn btn-dark" type="button" id="addBtn">Button</button>
+                <button class="btn btn-dark" type="button" id="addBtn" onclick="add()">Add</button>
             </div>
         </div>
     </body>

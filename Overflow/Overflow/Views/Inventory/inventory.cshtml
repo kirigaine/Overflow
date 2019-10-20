@@ -25,29 +25,93 @@
         </style>
         <script type="text/javascript">
             let count = 0;
-
+            let ingredients = JSON.parse('@Html.Raw(Json.Encode(@Model.Ingredients))');
+            let added = [];
+            let deleted = [];
+            let itemExists = false;
+            
             function start() {
-                inventory = document.getElementById('inventory');
-                let ingredients = JSON.parse('@Html.Raw(Json.Encode(@Model.Ingredients))');
-                console.log(ingredients[2]);
+                inventory = document.getElementById("inventory");
+                console.log(ingredients);
+                fillTable();
+                slctAll = document.getElementById("slctAll");
+                slctAll.addEventListener("click", selectAll);
+                deleteBtn = document.getElementById("delete");
+                deleteBtn.addEventListener("click", remove);
+            }
+
+            function exists(itemID) {
+                for (let i = 0; i < ingredients.length; i++) {
+                    console.log(ingredients[i] + "==" + itemID);
+                    if (ingredients[i].toString() == itemID) {
+                        itemExists = true;
+                        return;
+                    }
+                }
+                itemExists = false;
+            }
+
+            function fillTable() {
+                inventory.innerHTML = "";
+                document.getElementById("slctAll").checked = false;
+                count = 0;
                 for (let i = 0; i < ingredients.length; i++) {
                     count++;
-                    inventory.innerHTML += "<tr>\n<th scope='row'>" + count + ".</th>\n<td>" + ingredients[i] +
-                    "</td>\n<td class='select' style='float:right'><input type='checkbox' id=" + ingredients[i] + "/></td>\n</tr>\n";
+                    inventory.innerHTML += "<tr><th scope='row'>" + count + ".</th><td id='" + ingredients[i] + "'>" + ingredients[i] +
+                        "</td><td class='select' style='float:right'><input type='checkbox' id='" + ingredients[i] + "Slct'/></td></tr>";
                 }
-                slctAll = document.getElementById("selectAll");
+                if (count == 0) {
+                    inventory.innerHTML = "<th colspan=3>You don't have any ingredients yet, add your first in the textbox below to begin your inventory!</th>"
+                }
             }
 
             function add() {
-               var ingredient = document.getElementById('addedIngr').value;
-                table = document.getElementById("inventory");
-                count++;
-                table.innerHTML += "<tr>\n<th scope='row'>" + count + ".</th>\n<td>" + ingredient +
-                    "</td>\n<td class='select' style='float:right'><input type='checkbox' id=" + ingredient + "/></td>\n</tr>\n";
-               
-               'addedIngr'.placeholder = 'Add';
-           }
+                if (count == 0) {
+                    inventory.innerHTML = "";
+                }
+                let item = document.getElementById("addedIngr").value.toString();
+                exists(item);
+                if (itemExists == false) {
+                    count++;
+                    inventory.innerHTML += "<tr><th scope='row'>" + count + ".</th><td id='" + item + "'>" + item +
+                        "</td><td class='select' style='float:right'><input type='checkbox' id='" + item + "Slct'/></td>\n</tr>";
+                    added.push(item);
+                    ingredients.push(item);
+                }
+                else {
+                    window.alert("Item already exists");
+                }
+            }
+
+            function remove() {
+                for (let i = 0; i < ingredients.length; i++) {
+                    item = document.getElementById(ingredients[i]+"Slct");
+                    if (item.checked) {
+                        item = document.getElementById(ingredients[i]);
+                        item.style.textDecoration = "line-through";
+                        item.style.color = "rgb(135, 134, 133)";
+                        deleted.push(ingredients[i]);
+                        ingredients.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
+
+            function selectAll() {
+                if (document.getElementById("slctAll").checked) {
+                    for (let i = 0; i < count; i++) {
+                        document.getElementById(ingredients[i] + "Slct").checked = true;
+                    }
+                }
+                else {
+                    for (let i = 0; i < count; i++) {
+                        document.getElementById(ingredients[i] + "Slct").checked = false;
+                    }
+                }
+            }
+
             window.addEventListener("load", start, "false");
+
         </script>
 
         
@@ -60,7 +124,8 @@
                     <tr>
                         <th scope="col" style="width: 5%"></th>
                         <th scope="col" style="float:left">Ingredient</th>
-                        <th scope="col" style="float:right">Select All <input type="checkbox" /></th>
+                        <th scope="col" style="float:right">Select All <input type="checkbox" id="slctAll"/></th>
+                        <th style="float:right"><input type="button" class="btn-dark" value="Delete Selected" id="delete" /></th>
                     </tr>
                 </thead>
                 <tbody id="inventory">
@@ -75,5 +140,6 @@
                     <button class="btn btn-dark" type="button" id="addBtn" onclick="add()">Add</button>
                 </div>
             </div>
+        <button class="btn-dark" id="update" onclick="fillTable()">Update</button>
     </body>
 

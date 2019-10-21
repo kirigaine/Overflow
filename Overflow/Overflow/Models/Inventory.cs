@@ -9,8 +9,12 @@ namespace Overflow.Models
     {
         public int ID { get; set; }
         public string Username { get; set; }
+
         public List<String> Ingredients = new List<String>();
 
+        public List<String> Add = new List<String>();
+
+        public List<String> Delete = new List<String>();
           
   }
 }

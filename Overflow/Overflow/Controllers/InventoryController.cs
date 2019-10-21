@@ -13,36 +13,46 @@ namespace Overflow.Controllers
         // GET: Inventory
         public ActionResult Inventory(Inventory inventory)
         {
-            string userName = Session["username"].ToString();
-            inventory.Username = userName;
-
-            var connection = System.Configuration.ConfigurationManager.ConnectionStrings["OverflowDB"].ConnectionString;
-            SqlConnection con = new SqlConnection(connection);
-
-            if (con.State == System.Data.ConnectionState.Closed)
+            try
             {
-                con.Open();
+                string userName = Session["username"].ToString();
+                inventory.Username = userName;
+
+                var connection = System.Configuration.ConfigurationManager.ConnectionStrings["OverflowDB"].ConnectionString;
+                SqlConnection con = new SqlConnection(connection);
+
+                if (con.State == System.Data.ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
+                SqlCommand sqlCommand = new SqlCommand("SELECT dbo.getAID(@uname_param)", con);
+                SqlParameter email = new SqlParameter("@uname_param", System.Data.SqlDbType.VarChar);
+                email.Value = userName;
+                sqlCommand.Parameters.Add(email);
+                inventory.ID = (int)sqlCommand.ExecuteScalar();
+
+                SqlCommand getFood = new SqlCommand("SELECT * FROM dbo.f_getFoodFromAID(@Aid_param)", con);
+                SqlParameter AID = new SqlParameter("@Aid_param", System.Data.SqlDbType.Int);
+                AID.Value = inventory.ID;
+                getFood.Parameters.Add(AID);
+                SqlDataReader reader = getFood.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    inventory.Ingredients.Add(reader.GetString(0));
+                }
+
+                // Login login = new Login();
+                return View("~/Views/Inventory/inventory.cshtml", inventory);
             }
-
-            SqlCommand sqlCommand = new SqlCommand("SELECT dbo.getAID(@uname_param)", con);
-            SqlParameter email = new SqlParameter("@uname_param", System.Data.SqlDbType.VarChar);
-            email.Value = userName;
-            sqlCommand.Parameters.Add(email);
-            inventory.ID = (int)sqlCommand.ExecuteScalar();
-
-            SqlCommand getFood = new SqlCommand("SELECT * FROM dbo.f_getFoodFromAID(@Aid_param)", con);
-            SqlParameter AID = new SqlParameter("@Aid_param", System.Data.SqlDbType.Int);
-            AID.Value = inventory.ID;
-            getFood.Parameters.Add(AID);
-            SqlDataReader reader = getFood.ExecuteReader();
-
-            while (reader.Read())
-            {               
-                inventory.Ingredients.Add(reader.GetString(0));
+            catch
+            {
+                Login login = new Login();
+                login.LoginFlag = true;
+                login.ErrorMessage = "";
+                return View("~/Views/Home/Index.cshtml", login);
             }
-
-            // Login login = new Login();
-            return View("~/Views/Inventory/inventory.cshtml", inventory);
         }
 
         public ActionResult AddItem(Inventory inventory)

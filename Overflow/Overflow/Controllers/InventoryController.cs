@@ -55,7 +55,8 @@ namespace Overflow.Controllers
             }
         }
 
-        public ActionResult AddItem(Inventory inventory)
+        [HttpPost]
+        public ActionResult AddItem(string[] function_param)
         {
             var connection = System.Configuration.ConfigurationManager.ConnectionStrings["OverflowDB"].ConnectionString;
             SqlConnection con = new SqlConnection(connection);
@@ -65,33 +66,33 @@ namespace Overflow.Controllers
                 con.Open();
             }
 
-            string userName = Session["username"].ToString();
-            inventory.Username = userName;
-            SqlCommand sqlCommand = new SqlCommand("SELECT dbo.getAID(@uname_param)", con);
-            SqlParameter username = new SqlParameter("@uName_param", System.Data.SqlDbType.VarChar);
-            username.Value = userName;
+            //string userName = Session["username"].ToString();
+            //inventory.Username = userName;
+            //SqlCommand sqlCommand = new SqlCommand("SELECT dbo.getAID(@uname_param)", con);
+            //SqlParameter username = new SqlParameter("@uName_param", System.Data.SqlDbType.VarChar);
+            //username.Value = userName;
 
-            sqlCommand.Parameters.Add(username);
-            inventory.ID = (int)sqlCommand.ExecuteScalar();
+            //sqlCommand.Parameters.Add(username);
+            //inventory.ID = (int)sqlCommand.ExecuteScalar();
 
-            // If unable to add item because account ID doesn't exist, sends to homepage'
-            if (inventory.ID == -1){
-                return View("~/Views/Home/Index.cshtml");
-            }
+            //// If unable to add item because account ID doesn't exist, sends to homepage'
+            //if (inventory.ID == -1){
+            //    return View("~/Views/Home/Index.cshtml");
+            //}
 
-            SqlCommand sqlCommand2 = new SqlCommand("SELECT dbo.add_ingredientProc(@Aid_param, @fname_param)", con);
+            //SqlCommand sqlCommand2 = new SqlCommand("SELECT dbo.add_ingredientProc(@Aid_param, @fname_param)", con);
 
-            SqlParameter UserID = new SqlParameter("@Aid_param", System.Data.SqlDbType.Int);
-            UserID.Value = inventory.ID;
-            SqlParameter ingredientName = new SqlParameter("@fname_param", System.Data.SqlDbType.VarChar);
+            //SqlParameter UserID = new SqlParameter("@Aid_param", System.Data.SqlDbType.Int);
+            //UserID.Value = inventory.ID;
+            //SqlParameter ingredientName = new SqlParameter("@fname_param", System.Data.SqlDbType.VarChar);
 
-            foreach (string item in inventory.Ingredients)
-            {
-                ingredientName.Value = item;
-                sqlCommand2.Parameters.Add(UserID);
-                sqlCommand2.Parameters.Add(ingredientName);
-                sqlCommand2.ExecuteNonQuery();
-            }
+            //foreach (string item in inventory.Ingredients)
+            //{
+            //    ingredientName.Value = item;
+            //    sqlCommand2.Parameters.Add(UserID);
+            //    sqlCommand2.Parameters.Add(ingredientName);
+            //    sqlCommand2.ExecuteNonQuery();
+            //}
             return View("~/Views/Inventory/inventory.cshtml");
 
         }

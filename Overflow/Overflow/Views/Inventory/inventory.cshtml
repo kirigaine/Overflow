@@ -65,12 +65,23 @@
                 }
 
 
-                if (added.length > 0) {
+                if (added.length > 0) //Sends the "added" list to the AddItem function in the Inventory Controller
+                {
                     $.ajax({
                         type: "POST",
                         traditional: true,
                         url: "AddItem",
                         data: { function_param: added }
+                    });
+                }
+
+                if (deleted.length > 0) //Sends the "deleted" list to the DeleteItem function in the Inventory Controller
+                {
+                    $.ajax({
+                        type: "POST",
+                        traditional: true,
+                        url: "DeleteItem",
+                        data: { function_param: deleted }
                     });
                 }
             }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Web.Mvc;
 using Overflow.Models;
+using System.Data;
 
 namespace Overflow.Controllers
 {
@@ -58,42 +59,117 @@ namespace Overflow.Controllers
         [HttpPost]
         public ActionResult AddItem(string[] function_param)
         {
+            Inventory inventory = new Inventory();
+
+
             var connection = System.Configuration.ConfigurationManager.ConnectionStrings["OverflowDB"].ConnectionString;
             SqlConnection con = new SqlConnection(connection);
 
-            if (con.State == System.Data.ConnectionState.Closed)
+            if (con.State == System.Data.ConnectionState.Closed) //Makes a connection to the database
             {
                 con.Open();
             }
 
-            //string userName = Session["username"].ToString();
-            //inventory.Username = userName;
-            //SqlCommand sqlCommand = new SqlCommand("SELECT dbo.getAID(@uname_param)", con);
-            //SqlParameter username = new SqlParameter("@uName_param", System.Data.SqlDbType.VarChar);
-            //username.Value = userName;
+            // ******This was all commented out below******
+            string userName = Session["username"].ToString();
+            inventory.Username = userName;
+            SqlCommand sqlCommand = new SqlCommand("SELECT dbo.getAID(@uname_param)", con);  //makes "sqlCommand" reference the getAID function
+            SqlParameter username_parameter = new SqlParameter("@uName_param", System.Data.SqlDbType.VarChar);
+            username_parameter.Value = userName;
 
-            //sqlCommand.Parameters.Add(username);
-            //inventory.ID = (int)sqlCommand.ExecuteScalar();
+            sqlCommand.Parameters.Add(username_parameter);  //Adds the username as a parameter to the getAID function
+            inventory.ID = (int)sqlCommand.ExecuteScalar(); //The result of the getAID function becomes the ID for the inventory model
 
-            //// If unable to add item because account ID doesn't exist, sends to homepage'
-            //if (inventory.ID == -1){
-            //    return View("~/Views/Home/Index.cshtml");
-            //}
+            // If unable to add item because account ID doesn't exist, sends to homepage'
+            if (inventory.ID == -1)
+            {
+                return View("~/Views/Home/Index.cshtml");
+            }
 
-            //SqlCommand sqlCommand2 = new SqlCommand("SELECT dbo.add_ingredientProc(@Aid_param, @fname_param)", con);
+            SqlCommand sqlCommand2 = new SqlCommand("dbo.add_ingredientProc", con); // sqlCommand2 references the add_ingredient procedure
+            sqlCommand2.CommandType = CommandType.StoredProcedure; //
 
-            //SqlParameter UserID = new SqlParameter("@Aid_param", System.Data.SqlDbType.Int);
-            //UserID.Value = inventory.ID;
-            //SqlParameter ingredientName = new SqlParameter("@fname_param", System.Data.SqlDbType.VarChar);
 
-            //foreach (string item in inventory.Ingredients)
-            //{
-            //    ingredientName.Value = item;
-            //    sqlCommand2.Parameters.Add(UserID);
-            //    sqlCommand2.Parameters.Add(ingredientName);
-            //    sqlCommand2.ExecuteNonQuery();
-            //}
-            return View("~/Views/Inventory/inventory.cshtml");
+            SqlParameter UserID = new SqlParameter("@Aid_param", System.Data.SqlDbType.Int);
+            UserID.Value = inventory.ID;
+            SqlParameter ingredientName = new SqlParameter("@fname_param", System.Data.SqlDbType.VarChar);
+
+            foreach (string item in function_param)
+            {
+                string something = item;
+                something = something.ToLower();
+                something = something.Trim();
+                inventory.Add.Add(something);
+            }
+
+            foreach (string item in inventory.Add) //Goes through all the items in the current "Add" list in the inventory model
+            {
+                ingredientName.Value = item;
+                sqlCommand2.Parameters.Add(UserID);
+                sqlCommand2.Parameters.Add(ingredientName);
+                sqlCommand2.ExecuteNonQuery();
+                sqlCommand2.Parameters.Clear(); //Clears the parameters after the loop is done, making room for new ones.
+            }
+
+            return RedirectToAction("Inventory", "Index");
+
+        }
+
+        [HttpPost] //****************************************************This needs some work*************************************
+        public ActionResult DeleteItem(string[] function_param)
+        {
+            Inventory inventory = new Inventory();
+
+
+            var connection = System.Configuration.ConfigurationManager.ConnectionStrings["OverflowDB"].ConnectionString;
+            SqlConnection con = new SqlConnection(connection);
+
+            if (con.State == System.Data.ConnectionState.Closed) //Makes a connection to the database
+            {
+                con.Open();
+            }
+
+            // ******This was all commented out below******
+
+            string userName = Session["username"].ToString();
+            inventory.Username = userName;
+            SqlCommand sqlCommand = new SqlCommand("SELECT dbo.getAID(@uname_param)", con);  //makes "sqlCommand" reference the getAID function
+            SqlParameter username_parameter = new SqlParameter("@uName_param", System.Data.SqlDbType.VarChar);
+            username_parameter.Value = userName;
+
+            sqlCommand.Parameters.Add(username_parameter);  //Adds the username as a parameter to the getAID function
+            inventory.ID = (int)sqlCommand.ExecuteScalar(); //The result of the getAID function becomes the ID for the inventory model
+
+            // If unable to add item because account ID doesn't exist, sends to homepage'
+            if (inventory.ID == -1)
+            {
+                return View("~/Views/Home/Index.cshtml");
+            }
+
+            SqlCommand sqlCommand2 = new SqlCommand("dbo.deleteOneIngredientProc", con); // sqlCommand2 references the add_ingredient procedure
+            sqlCommand2.CommandType = CommandType.StoredProcedure; //
+
+
+            SqlParameter UserID = new SqlParameter("@Aid_param", System.Data.SqlDbType.Int);
+            UserID.Value = inventory.ID;
+            SqlParameter ingredientName = new SqlParameter("@Ingredient_param", System.Data.SqlDbType.VarChar);
+
+            foreach (string item in function_param) //Adds the items in the passed function_param list to the Delete list in the Inventory model
+            {
+                item.ToLower();
+                inventory.Delete.Add(item); 
+            }
+
+            foreach (string item in inventory.Delete) //Goes through all the items in the current "Delete" list in the inventory model
+            {
+                ingredientName.Value = item;
+                sqlCommand2.Parameters.Add(UserID);
+                sqlCommand2.Parameters.Add(ingredientName);
+                sqlCommand2.ExecuteNonQuery();
+                sqlCommand2.Parameters.Clear(); //Clears the parameters after the loop is done, making room for new ones.
+            }
+
+            return RedirectToAction("Inventory", "Index");
 
         }
     }

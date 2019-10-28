@@ -46,9 +46,6 @@ catch (NullReferenceException error)
             <li class="nav-item @Html.IsActive("Home", "advSearch")">
                 @Html.ActionLink("Advanced Search", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })
             </li>
-            <li class="nav-item @Html.IsActive("Inventory", "Inventory")">
-                @Html.ActionLink("My Inventory", "Inventory", "Inventory", null, new { @class = "nav-link" })
-            </li>
         </ul>
     </div>
     <div id="buttons">

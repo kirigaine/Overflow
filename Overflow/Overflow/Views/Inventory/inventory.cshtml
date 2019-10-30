@@ -56,6 +56,7 @@
                 document.getElementById("slctAll").checked = false;
                 count = 0;
                 for (let i = 0; i < ingredients.length; i++) {
+                    ingredients[i].charAt(0).toUpperCase();
                     count++;
                     inventory.innerHTML += "<tr><th scope='row'>" + count + ".</th><td id='" + ingredients[i] + "'>" + ingredients[i] +
                         "</td><td class='select' style='float:right'><input type='checkbox' id='" + ingredients[i] + "Slct'/></td></tr>";
@@ -91,9 +92,10 @@
                 if (count == 0) {
                     inventory.innerHTML = "";
                 }
-                let item = document.getElementById("addedIngr").value.toString();
+                const item = document.getElementById("addedIngr").value.toString();
                 exists(item);
                 if (itemExists == false) {
+                    item.charAt(0).toUpperCase();
                     count++;
                     inventory.innerHTML += "<tr><th scope='row'>" + count + ".</th><td id='" + item + "'>" + item +
                         "</td><td class='select' style='float:right'><input type='checkbox' id='" + item + "Slct'/></td>\n</tr>";
@@ -103,6 +105,7 @@
                 else {
                     window.alert("Item already exists");
                 }
+                document.getElementById("addedIngr").value = "";
             }
 
             function remove() {
@@ -147,7 +150,7 @@
                         <th scope="col" style="width: 5%"></th>
                         <th scope="col" style="float:left">Ingredient</th>
                         <th scope="col" style="float:right">Select All <input type="checkbox" id="slctAll"/></th>
-                        <th style="float:right"><input type="button" class="btn-dark" value="Delete Selected" id="delete" /></th>
+                        <th style="float:right"><input type="button" class="btn btn-dark" value="Delete Selected" id="delete" /></th>
                     </tr>
                 </thead>
                 <tbody id="inventory">
@@ -162,6 +165,6 @@
                     <button class="btn btn-dark" type="button" id="addBtn" onclick="add()">Add</button>
                 </div>
             </div>
-        <button class="btn btn-dark" id="update" onclick="fillTable()">Update</button>
+        <button class="btn btn-dark" id="update" onclick="fillTable()" style="margin: 5px 0px; float: right">Update</button>
     </body>
 

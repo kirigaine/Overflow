@@ -187,6 +187,11 @@ namespace Overflow.Controllers
             Session["username"] = null;
             return View("~/Views/Home/Index.cshtml", login);
         }
+
+        public ActionResult Recipes()
+        {
+            return View("~/Views/Recipes/recipes.cshtml");
+        }
     }
      
 }

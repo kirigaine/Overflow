@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "recipes";
+}
+    
+    <style>
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .square {
+            height: 75px;
+            width: 75px;
+        }
+    </style>
+
+    <body>
+        <h1>Recipes</h1>
+        @if (Session["username"].ToString().Equals("tbishop_1996@hotmail.com"))
+        {
+            <p id="recipes"></p>
+            <div style="width:80%; margin-left: auto; margin-right: auto">
+                <button style="border-radius: 10px">
+                    <img src="https://bigoven-res.cloudinary.com/image/upload/d_recipe-no-image.jpg,t_recipe-480/one-pot-goulash.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
+                    <div style="float: left; text-align: left">
+                        <h1>Title: Ghoulash</h1>
+                        <h3>Main Ingredient: Macaroni Pasta</h3>
+                    </div>
+                    <h1 style="float: right">87%</h1>
+                </button>
+            </div>
+
+            <div style="width:80%; margin-left: auto; margin-right: auto">
+                <button style="border-radius: 10px">
+                    <img src="https://bigoven-res.cloudinary.com/image/upload/d_recipe-no-image.jpg,t_recipe-480/bakedgarlicparmesanchicken-7aaf18.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
+                    <div style="float: left; text-align: left">
+                        <h1>Title: Parmesan Chicken</h1>
+                        <h3>Main Ingredient: Chicken Breast</h3>
+                    </div>
+                    <h1 style="float: right">60%</h1>
+                </button>
+            </div>
+
+            <div style="width:80%; margin-left: auto; margin-right: auto">
+                <button style="border-radius: 10px">
+                    <img src="https://bigoven-res.cloudinary.com/image/upload/d_recipe-no-image.jpg,t_recipe-480/tuna-noodle-casserole-767f8a.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
+                    <div style="float: left; text-align: left">
+                        <h1>Title: Tuna Noodle Casserole</h1>
+                        <h3>Main Ingredient: Tuna</h3>
+                    </div>
+                    <h1 style="float: right">34%</h1>
+                </button>
+            </div>
+        }
+        else if (Session["username"].ToString().Equals("devin.cook@icloud.com"))
+        {
+            <recipe title="Chicken Fettucine Alfredo" mainIngr="Chicken"></recipe>
+            <p id="recipes"></p>
+
+            <div style="width:80%; margin-left: auto; margin-right: auto">
+                <button style="border-radius: 10px">
+                    <img src="https://www.onionringsandthings.com/wp-content/uploads/2018/08/chicken-alfredo-casserole-6.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
+                    <div style="float: left; text-align: left">
+                        <h1>Title: Chicken Penne Alfredo</h1>
+                        <h3>Main Ingredient: Pasta</h3>
+                    </div>
+                    <h1 style="float: right">95%</h1>
+                </button>
+            </div>
+
+            <div style="width:80%; margin-left: auto; margin-right: auto">
+                <button style="border-radius: 10px">
+                    <img src="https://www.recipetineats.com/wp-content/uploads/2017/03/One-Pot-Chicken-Alfredo-2.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
+                    <div style="float: left; text-align: left">
+                        <h1>Title: Creamy Italian Chicken Pasta</h1>
+                        <h3>Main Ingredient: Pasta</h3>
+                    </div>
+                    <h1 style="float: right">90%</h1>
+
+                </button>
+            </div>
+
+            <div style="width:80%; margin-left: auto; margin-right: auto">
+                <button style="border-radius: 10px">
+                    <img src="https://thestayathomechef.com/wp-content/uploads/2016/06/Fried-Chicken-4-1.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
+                    <div style="float: left; text-align: left">
+                        <h1>Title: Fried Chicken</h1>
+                        <h3>Main Ingredient: Chicken</h3>
+                    </div>
+                    <h1 style="float: right">90%</h1>
+                </button>
+            </div>
+        }
+    </body>
+
+
+
+
+

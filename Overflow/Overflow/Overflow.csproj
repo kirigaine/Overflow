@@ -176,6 +176,7 @@
     <Content Include="Views\Shared\advSearch.cshtml" />
     <Content Include="Views\Inventory\inventory.cshtml" />
     <Content Include="Views\Shared\loginErrorModal.cshtml" />
+    <Content Include="Views\Recipes\recipes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

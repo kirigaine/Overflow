@@ -42,10 +42,6 @@ catch (NullReferenceException error)
             <li class="nav-item @Html.IsActive("Home", "Index")">
                 @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
             </li>
-            <!--Advanced Search-->
-            <li class="nav-item @Html.IsActive("Home", "advSearch")">
-                @Html.ActionLink("Advanced Search", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })
-            </li>
         </ul>
     </div>
     <div id="buttons">
@@ -68,6 +64,5 @@ catch (NullReferenceException error)
 @Html.Partial("~/Views/Shared/loginModal.cshtml")
 <!--Log in modal-->
 @Html.Partial("~/Views/Shared/signupModal.cshtml")
-<!--Advanced search modal-->
-@Html.Partial("~/Views/Shared/advSearchModal.cshtml")
+
 

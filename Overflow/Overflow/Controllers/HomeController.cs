@@ -48,7 +48,7 @@ namespace Overflow.Controllers
                         login.IsLoggedIn = true;
                         Session["username"] = login.Email;
 
-                        return View("~/Views/Home/Index.cshtml", login);
+                        return View("~/Views/Recipes/recipes.cshtml", login);
                     }
                 }
 

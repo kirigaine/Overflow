@@ -5,7 +5,7 @@
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!--Logo-->
-    <a class="navbar-brand" href="/Home/Index">
+    <a class="navbar-brand">
 
         <img src="~/Content/mockup2.png" id="navLogo" />
     </a>
@@ -21,10 +21,6 @@
     <!--Navbar Items-->
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ">
-            <!--Home-->
-            <li class="nav-item @Html.IsActive("Get Recipes", "Recipes")">
-                @Html.ActionLink("Get Recipes", "Recipes", "Home", null, new { @class = "nav-link" })
-            </li>
             <!--Advanced Search-->
             <li class="nav-item @Html.IsActive("Home", "advSearch")">
                 @Html.ActionLink("Advanced Search", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })

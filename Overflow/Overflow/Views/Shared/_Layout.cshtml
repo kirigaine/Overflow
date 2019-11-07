@@ -16,27 +16,29 @@
     <link href="~/Content/overflow.css" rel="stylesheet" />
 
 </head>
-<body style="background-color: grey; color: beige; height: 100%">
-    @if (Session["username"] != null)   {
-     @Html.Partial("~/Views/Shared/authView.cshtml")
-    }
-    else
-    {
-    @Html.Partial("~/Views/Shared/unAuthView.cshtml")
-    }
 
-    <div class="container body-content" style="height:80%; padding-top: 10px; padding-bottom: 0px;">
-        <!--Rendering HTML-->
+@if (Session["username"] != null)
+{
+    <body style="background-color: grey; color: ghostwhite; height: 100%">
+        @Html.Partial("~/Views/Shared/authView.cshtml")
+        <div class="container body-content" style="height:80%; padding-top: 10px; padding-bottom: 0px;">
+            <!--Rendering HTML-->
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
+            </footer>
+        </div>
+    </body>
+}
+else
+{
+    <body style="background-image: url(../../Content/home_bg.jpg); background-size:cover; color: ghostwhite" class="container h-100">
         @RenderBody()
-        <hr />
-        <!--Footer-->
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Senior Project Fall 2019</p>
-        </footer>
-    </div>
+    </body>
+}
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </html>

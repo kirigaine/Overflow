@@ -3,45 +3,53 @@
 @{
     ViewBag.Title = "Home";
 }
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Overflow</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous" />
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <link href="~/Content/overflow.css" rel="stylesheet" />
-</head>
+<link rel="stylesheet"
+      href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet"
+      href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<script type="text/javascript"
+        src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+@try
+{
+    if (Model.LoginFlag == true)
+    {
+        <script type="text/javascript">
+            $(window).on('load', function () {
+                $('#loginErrorModal').modal('show');
+        </script>
+    }
+}
+catch (NullReferenceException error)
+{
+}
 <body>
-    <h1>Home</h1>
+    <div class="row h-100 justify-content-center align-items-center text-center">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <img src="~/Content/mockup2.png" style="width: 30%" />
+            </div>
+            <div class="form-group">
+                <h2>Save more. Eat more.</h2>
+            </div>
+            <div class="form-group" data-toggle="modal" data-target="#signUpModal">
+                <button class="btn btn-orange m-2 w-25" style="background-color: rgb(238, 75, 18)">Sign Up</button>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-orange m-2 w-25" style="background-color: rgb(238, 75, 18)" data-toggle="modal" data-target="#logInModal">Log In</button>
+            </div>
+        </div>
+    </div>
     @if (Model.LoginFlag == true)
     {
-        <script type="text/javascript">
+        <script>
             $(window).on('load', function () {
-                $('#logInModal').modal('show');
-            });
+                $('#loginModal').modal('show');
+            })
         </script>
     }
-
-    @if (Model.ErrorMessage.Length > 1)
-    {
-        <script type="text/javascript">
-            $(window).on('load', function () {
-                $('#signUpModal').modal('show');
-            });
-        </script>
-    }
-
+    <!--Sign up modal-->
+    @Html.Partial("~/Views/Shared/loginModal.cshtml")
+    <!--Log in modal-->
+    @Html.Partial("~/Views/Shared/signupModal.cshtml")
 </body>
-</html>
-@Html.Partial("~/Views/Shared/loginModal.cshtml")

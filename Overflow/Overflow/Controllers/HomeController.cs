@@ -40,7 +40,7 @@ namespace Overflow.Controllers
                     {
                         login.IsLoggedIn = false;
                         login.LoginFlag = true;
-                        return View("~/Views/Home/Index.cshtml", login);
+                        return View("~/Views/Shared/loginError.cshtml");
                     }
 
                     else if (result == 1)

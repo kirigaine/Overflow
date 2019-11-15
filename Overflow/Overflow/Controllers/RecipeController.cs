@@ -18,13 +18,13 @@ namespace Overflow.Controllers
     public class RecipeController : Controller
     {
         // GET: Recipe
-        public ActionResult Recipe(Recipe recipe)
+        public ActionResult Recipe(Recipes recipe)
         {
             WebClient Client = new WebClient();
             //get a string representation of our json
             string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=chicken&app_id=e470194d&app_key=&from=0&to=1&calories=591-722&health=alcohol-free");
 
-            Object jsonObj = new JavaScriptSerializer().Deserialize<object>(urlPageCode);
+            Rootobject r = JsonConvert.DeserializeObject<Rootobject>(urlPageCode);
 
             return View();
         }

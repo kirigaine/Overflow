@@ -8,6 +8,10 @@ using Overflow.Models;
 using System.Data;
 using System.Net;
 using Newtonsoft.Json;
+using System.Web.Helpers;
+using Newtonsoft.Json.Linq;
+using System.Web.Script.Serialization;
+using System.Reflection;
 
 namespace Overflow.Controllers
 {
@@ -18,9 +22,10 @@ namespace Overflow.Controllers
         {
             WebClient Client = new WebClient();
             //get a string representation of our json
-            string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=chicken&app_id=e470194d&app_key=3d7bcf2d71b9b8c10c9a75576fc50e64&from=0&to=3&calories=591-722&health=alcohol-free");
-            recipe = JsonConvert.DeserializeObject<Recipe>(urlPageCode);
-                      
+            string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=chicken&app_id=e470194d&app_key=&from=0&to=1&calories=591-722&health=alcohol-free");
+
+            Object jsonObj = new JavaScriptSerializer().Deserialize<object>(urlPageCode);
+
             return View();
         }
     }

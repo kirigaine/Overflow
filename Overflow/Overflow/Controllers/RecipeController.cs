@@ -26,6 +26,18 @@ namespace Overflow.Controllers
 
             Rootobject r = JsonConvert.DeserializeObject<Rootobject>(urlPageCode);
 
+
+            //foreach()
+
+            List<string> IList = new List<string>();
+            foreach (var item in r.hits.ElementAt(0).recipe.ingredientLines) //Goes through the ingredients in a recipe and adds it to the Ilist
+            {
+                IList.Add(item);
+            }
+
+            
+            
+
             return View();
         }
     }

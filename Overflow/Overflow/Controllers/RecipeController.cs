@@ -26,17 +26,20 @@ namespace Overflow.Controllers
 
             Rootobject r = JsonConvert.DeserializeObject<Rootobject>(urlPageCode);
 
-
-            for(int i=0; i  <r.hits.Length; i++)
+            Dictionary<int, List<String>> d = new Dictionary<int, List<string>>();
+            List<string> tempList = new List<string>();
+            for (int i=0; i  <r.hits.Length; i++)
             {
-                Dictionary<int, List<String>> d = new Dictionary<int, List<string>>;
 
-                List<string> IList = new List<string>();
+
+
                 foreach (var item in r.hits.ElementAt(i).recipe.ingredientLines) //Goes through the ingredients in a recipe and adds it to the Ilist
                 {
-                    IList.Add(item);
-                }
+                    tempList.Add(item);
 
+                }
+                d.Add(i, tempList);
+                tempList.Clear();
             }
 
 

@@ -48,7 +48,8 @@ namespace Overflow.Controllers
                         login.IsLoggedIn = true;
                         Session["username"] = login.Email;
 
-                        return View("~/Views/Recipes/recipes.cshtml", login);
+                        Inventory tempInv = new Inventory();
+                        return RedirectToAction("Inventory", "Inventory");
                     }
                 }
 

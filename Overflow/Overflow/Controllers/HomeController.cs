@@ -177,6 +177,23 @@ namespace Overflow.Controllers
 
                 addUser.ExecuteNonQuery();
             }
+            int result = Auth_Login(login.Email, login.Pass);
+
+            if (result == 0)
+            {
+                login.IsLoggedIn = false;
+                login.LoginFlag = true;
+                return View("~/Views/Shared/loginError.cshtml");
+            }
+
+            else if (result == 1)
+            {
+                login.IsLoggedIn = true;
+                Session["username"] = login.Email;
+
+                Inventory tempInv = new Inventory();
+                return RedirectToAction("Inventory", "Inventory");
+            }
             return View("~/Views/Home/Index.cshtml", login);
         }
 

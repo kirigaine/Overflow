@@ -12,6 +12,8 @@ using System.Web.Helpers;
 using Newtonsoft.Json.Linq;
 using System.Web.Script.Serialization;
 using System.Reflection;
+using System.Text.RegularExpressions;
+
 
 namespace Overflow.Controllers
 {
@@ -86,7 +88,70 @@ namespace Overflow.Controllers
                 //tempList.Clear();
             }
 
-            
+            // Create string to concatenate to as well as sample data. Will pass an inventory later AND THEN THIS CODE CAN BE REMOVED
+            string longlist = "";
+            /*inventory.Ingredients.Add("2taco");
+            inventory.Ingredients.Add("SEASONIN7G");
+            inventory.Ingredients.Add("be3ef");
+            inventory.Ingredients.Add("chicke5N");
+            inventory.Ingredients.Add("che4ese");
+            inventory.Ingredients.Add("leTTuce1");
+            inventory.Ingredients.Add("r6iCe");
+            inventory.Ingredients.Add("tomato");*/
+
+
+            //TEST USING INVENTORY VS RECIPE INSTEAD OF RECIPE VS INVENTORY. SHOULD WORK BETTER BY NOT HAVING TO CHANGE AS MUCH
+            inventory.Ingredients.Add("taco");
+            inventory.Ingredients.Add("seasoning");
+            inventory.Ingredients.Add("beef");
+            inventory.Ingredients.Add("chicken");
+            inventory.Ingredients.Add("cheese");
+            inventory.Ingredients.Add("lettuce");
+            inventory.Ingredients.Add("rice");
+            inventory.Ingredients.Add("tomato");
+
+            //Reads each ingredient from the inventory and concatenates to a blank string
+            foreach (string ingredient in inventory.Ingredients)
+            {
+                //ingredient.IndexOfAny(new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' });
+                longlist = String.Concat(longlist, (ingredient.ToLower() + ";"));
+            }
+
+
+            //Goes through the list of inventory ingredients and removes numbers THIS IS UNNECESSARY FOR THE SAMPLE DATA, BUT NEEDED FOR REAL
+            do
+            {
+                int numberFoundIndex = -1;
+                if ((numberFoundIndex = longlist.IndexOfAny(new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' })) != -1) longlist = longlist.Remove(numberFoundIndex, 1);
+                else break;
+            } while (1 == 1);
+
+            //For quickly comparing lists, use the below
+            //var whatithas = inventory.Ingredients.Except(d[0]);
+            int numMatches = 0;
+            var invContains = inventory.Ingredients.Select(w => @"\b" + Regex.Escape(w) + @"\b");
+            var invMatch = new Regex("(" + string.Join(")|(", invContains) + ")");
+            //Iterates through all elements of dictionary
+            for (int i = 0; i < d.Count(); i++)
+            {
+                //Iterates through all ingredients for an element of dictionary
+                foreach (string ingredient in d[i])
+                {
+                    string currentIngredient = ingredient;
+                    bool found = false;
+                    found = invMatch.IsMatch(currentIngredient);
+                    if (found == true)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Matched to" + currentIngredient + "!");
+                        numMatches++;
+                    }
+                }
+                double matchPercent = (numMatches / d[i].Count);
+
+                //**Remove after initial test case works**
+                if (i == 0) break;
+            }
+
 
 
             return View();

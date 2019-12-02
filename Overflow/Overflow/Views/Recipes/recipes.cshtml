@@ -1,8 +1,15 @@
-﻿
+﻿@model Overflow.Models.RecipeContainer
 @{
     ViewBag.Title = "recipes";
 }
 
+@*<*@@*script type="text/javascript">
+    function start() {
+        Console.Write($"@Model.RecipeURL");
+    }
+
+    window.addEventListener("load", start, "false");
+</script>*@
 <style>
     img {
         max-width: 100%;
@@ -18,8 +25,11 @@
 <body>
     <h1>Recipes</h1>
     @if (Session["username"].ToString().Equals("tbishop_1996@hotmail.com"))
+        
     {
-        <p id="recipes"></p>
+    <p id="recipes">
+        
+        </p>
         <div style="width:80%; margin-left: auto; margin-right: auto">
             <button style="border-radius: 10px">
                 <img src="https://bigoven-res.cloudinary.com/image/upload/d_recipe-no-image.jpg,t_recipe-480/one-pot-goulash.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
@@ -57,6 +67,8 @@
     {
         <recipe title="Chicken Fettucine Alfredo" mainIngr="Chicken"></recipe>
         <p id="recipes"></p>
+
+        <p>@Model.RecipeContainerListContainerofLists.ElementAt(0).RecipeURL</p>
 
         <div style="width:80%; margin-left: auto; margin-right: auto">
             <button style="border-radius: 10px">

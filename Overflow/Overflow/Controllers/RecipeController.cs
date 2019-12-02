@@ -20,7 +20,7 @@ namespace Overflow.Controllers
     public class RecipeController : Controller
     {
         // GET: Recipe
-        public ActionResult Recipe(Recipes recipe)
+        public ActionResult Recipe(OurRecipe recipe)
         {
 
             Inventory inventory = new Inventory();
@@ -70,7 +70,8 @@ namespace Overflow.Controllers
 
             WebClient Client = new WebClient();
             //get a string representation of our json
-            string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=chicken&app_id=e470194d&app_key=9efbee79595f1181598425c821e6e4bf&from=0&to=100&calories=591-722&health=alcohol-free");
+           // string urlPageCode = Client.DownloadString("https://api.edamam.com/search?&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
+           string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=milk&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
 
             Rootobject r = JsonConvert.DeserializeObject<Rootobject>(urlPageCode);
 
@@ -88,52 +89,12 @@ namespace Overflow.Controllers
                 //tempList.Clear();
             }
 
-            // Create string to concatenate to as well as sample data. Will pass an inventory later AND THEN THIS CODE CAN BE REMOVED
-            string longlist = "";
-            /*inventory.Ingredients.Add("2taco");
-            inventory.Ingredients.Add("SEASONIN7G");
-            inventory.Ingredients.Add("be3ef");
-            inventory.Ingredients.Add("chicke5N");
-            inventory.Ingredients.Add("che4ese");
-            inventory.Ingredients.Add("leTTuce1");
-            inventory.Ingredients.Add("r6iCe");
-            inventory.Ingredients.Add("tomato");*/
-
-
-            //TEST USING INVENTORY VS RECIPE INSTEAD OF RECIPE VS INVENTORY. SHOULD WORK BETTER BY NOT HAVING TO CHANGE AS MUCH
-            inventory.Ingredients.Add("taco");
-            inventory.Ingredients.Add("seasoning");
-            inventory.Ingredients.Add("beef");
-            inventory.Ingredients.Add("chicken");
-            inventory.Ingredients.Add("cheese");
-            inventory.Ingredients.Add("lettuce");
-            inventory.Ingredients.Add("rice");
-            inventory.Ingredients.Add("tomato");
-
-            //Reads each ingredient from the inventory and concatenates to a blank string
-            foreach (string ingredient in inventory.Ingredients)
-            {
-                //ingredient.IndexOfAny(new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' });
-                longlist = String.Concat(longlist, (ingredient.ToLower() + ";"));
-            }
-
-
-            //Goes through the list of inventory ingredients and removes numbers THIS IS UNNECESSARY FOR THE SAMPLE DATA, BUT NEEDED FOR REAL
-            do
-            {
-                int numberFoundIndex = -1;
-                if ((numberFoundIndex = longlist.IndexOfAny(new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' })) != -1) longlist = longlist.Remove(numberFoundIndex, 1);
-                else break;
-            } while (1 == 1);
-
-            //For quickly comparing lists, use the below
-            //var whatithas = inventory.Ingredients.Except(d[0]);
             int numMatches = 0;
-            var invContains = inventory.Ingredients.Select(w => @"\b" + Regex.Escape(w) + @"\b");
+            var invContains = inventoryList.Select(w => @"\b" + Regex.Escape(w) + @"\b");
             var invMatch = new Regex("(" + string.Join(")|(", invContains) + ")");
 
-            List<Recipes> recipes = new List<Recipes>(100);
-            Recipes rec;
+            List<OurRecipe> recipes = new List<OurRecipe>(100);
+            OurRecipe rec;
 
             //Iterates through all elements of dictionary
             for (int i = 0; i < d.Count(); i++)
@@ -150,17 +111,21 @@ namespace Overflow.Controllers
                         numMatches++;
                     }
                 }
-                double matchPercent = (numMatches / d[i].Count);
-                rec = new Recipes();
+                Decimal matchPercent = (numMatches / d[i].Count);
+                rec = new OurRecipe();
                 rec.MatchPercent = matchPercent;
-               
-                //**Remove after initial test case works**
-                if (i == 0) break;
+                rec.RecipeLabel = r.hits[i].recipe.label;
+                rec.ImageURL = r.hits[i].recipe.image;
+                rec.RecipeURL = r.hits[i].recipe.url;
+                rec.Source = r.hits[i].recipe.source;
+                recipes.Add(rec);
+
             }
 
+            RecipeContainer rc = new RecipeContainer();
+            rc.RecipeContainerListContainerofLists = recipes;
 
-
-            return View("~/Views/Recipes/recipes.cshtml");
+            return View("~/Views/Recipes/Recipes.cshtml", rc);
         }
     }
 }

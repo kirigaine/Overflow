@@ -131,6 +131,10 @@ namespace Overflow.Controllers
             int numMatches = 0;
             var invContains = inventory.Ingredients.Select(w => @"\b" + Regex.Escape(w) + @"\b");
             var invMatch = new Regex("(" + string.Join(")|(", invContains) + ")");
+
+            List<Recipes> recipes = new List<Recipes>(100);
+            Recipes rec;
+
             //Iterates through all elements of dictionary
             for (int i = 0; i < d.Count(); i++)
             {
@@ -147,7 +151,9 @@ namespace Overflow.Controllers
                     }
                 }
                 double matchPercent = (numMatches / d[i].Count);
-
+                rec = new Recipes();
+                rec.MatchPercent = matchPercent;
+               
                 //**Remove after initial test case works**
                 if (i == 0) break;
             }

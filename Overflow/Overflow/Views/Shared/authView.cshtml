@@ -21,10 +21,15 @@
     <!--Navbar Items-->
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ">
+            <!--Get Recipes-->
+            <li class="nav-item @Html.IsActive("Recipes", "Recipes")">
+                @Html.ActionLink("Get Recipes", "Recipe", "Recipe", null, new { @class = "nav-link"})
+            </li>
             <!--Advanced Search-->
             <li class="nav-item @Html.IsActive("Home", "advSearch")">
                 @Html.ActionLink("Advanced Search", null, null, new { @class = "nav-link", @data_target = "#advSearchModal", @data_toggle = "modal" })
             </li>
+            <!--Inventory-->
             <li class="nav-item @Html.IsActive("Inventory", "Inventory")">
                 @Html.ActionLink("My Inventory", "Inventory", "Inventory", null, new { @class = "nav-link" })
             </li>

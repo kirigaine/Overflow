@@ -7,6 +7,6 @@ namespace Overflow.Models
 {
     public class RecipeContainer
     {
-        public List<Recipes> RecipeContainerListContainerofLists = new List<Recipes>();
+        public List<OurRecipe> RecipeContainerListContainerofLists = new List<OurRecipe>();
     }
 }

@@ -70,7 +70,8 @@ namespace Overflow.Controllers
 
             WebClient Client = new WebClient();
             //get a string representation of our json
-            string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=chicken&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
+           // string urlPageCode = Client.DownloadString("https://api.edamam.com/search?&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
+           string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=milk&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
 
             Rootobject r = JsonConvert.DeserializeObject<Rootobject>(urlPageCode);
 
@@ -109,6 +110,7 @@ namespace Overflow.Controllers
             inventory.Ingredients.Add("lettuce");
             inventory.Ingredients.Add("rice");
             inventory.Ingredients.Add("tomato");
+            inventory.Ingredients.Add("milk");
 
             //Reads each ingredient from the inventory and concatenates to a blank string
             foreach (string ingredient in inventory.Ingredients)
@@ -153,14 +155,18 @@ namespace Overflow.Controllers
                 double matchPercent = (numMatches / d[i].Count);
                 rec = new Recipes();
                 rec.MatchPercent = matchPercent;
-               
-                //**Remove after initial test case works**
-                if (i == 0) break;
+                rec.RecipeLabel = r.hits[i].recipe.label;
+                rec.ImageURL = r.hits[i].recipe.image;
+                rec.RecipeURL = r.hits[i].recipe.url;
+                rec.Source = r.hits[i].recipe.source;
+                recipes.Add(rec);
+
             }
 
+            RecipeContainer rc = new RecipeContainer();
+            rc.RecipeContainerListContainerofLists = recipes;
 
-
-            return View();
+            return View("~/Views/Recipes/Recipes.cshtml", rc);
         }
     }
 }

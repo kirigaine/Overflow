@@ -62,8 +62,8 @@ public class Recipes //Assumed to be the main recipe class used
     {
         public string ImageURL { get; set; }
         public string Source { get; set; }
+        public string RecipeLabel { get; set; }
         public string RecipeURL { get; set; }
         public double MatchPercent { get; set; }
-        public List<String> IngredientList = new List<String>();
     }
 }

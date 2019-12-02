@@ -22,7 +22,7 @@ namespace Overflow.Models
         public bool bought { get; set; }
     }
 
-    public class Recipe
+    public class Recipe //Why is this one here?
     {
         public string label { get; set; }
         public string image { get; set; }
@@ -58,7 +58,7 @@ namespace Overflow.Models
         public float quantity { get; set; }
         public string unit { get; set; }
     }
-public class Recipes
+public class Recipes //Assumed to be the main recipe class used
     {
         public string ImageURL { get; set; }
         public string Source { get; set; }

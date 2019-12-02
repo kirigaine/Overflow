@@ -20,6 +20,52 @@ namespace Overflow.Controllers
         // GET: Recipe
         public ActionResult Recipe(Recipes recipe)
         {
+
+            Inventory inventory = new Inventory();
+            List<string> inventoryList = new List<string>();
+
+            try
+            {
+                string userName = Session["username"].ToString();
+                inventory.Username = userName;
+
+                var connection = System.Configuration.ConfigurationManager.ConnectionStrings["OverflowDB"].ConnectionString; //Creates connection to database
+                SqlConnection con = new SqlConnection(connection); 
+
+                if (con.State == System.Data.ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
+                SqlCommand sqlCommand = new SqlCommand("SELECT dbo.getAID(@uname_param)", con);
+                SqlParameter email = new SqlParameter("@uname_param", System.Data.SqlDbType.VarChar);
+                email.Value = userName;
+                sqlCommand.Parameters.Add(email);
+                inventory.ID = (int)sqlCommand.ExecuteScalar();
+
+                SqlCommand getFood = new SqlCommand("SELECT * FROM dbo.f_getFoodFromAID(@Aid_param)", con);
+                SqlParameter AID = new SqlParameter("@Aid_param", System.Data.SqlDbType.Int);
+                AID.Value = inventory.ID;
+                getFood.Parameters.Add(AID);
+                SqlDataReader reader = getFood.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    inventoryList.Add(reader.GetString(0));     //Adds read inventory items from the user's account to the inventory list      
+                }
+
+                // Login login = new Login();
+                //return View;
+            }
+            catch ////returns to the login page if the user is not logged in////
+            {
+                Login login = new Login();
+                login.LoginFlag = true;
+                login.ErrorMessage = "";
+                return View("~/Views/Home/Index.cshtml", login);
+            }
+
+
             WebClient Client = new WebClient();
             //get a string representation of our json
             string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=chicken&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
@@ -38,13 +84,10 @@ namespace Overflow.Controllers
                 }
                 d.Add(i, tempRecipeList);
                 //tempList.Clear();
-
             }
 
-
-
             
-            
+
 
             return View();
         }

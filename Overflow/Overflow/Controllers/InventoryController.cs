@@ -12,6 +12,7 @@ namespace Overflow.Controllers
     public class InventoryController : Controller
     {
         // GET: Inventory
+
         public ActionResult Inventory(Inventory inventory)
         {
             try
@@ -27,12 +28,14 @@ namespace Overflow.Controllers
                     con.Open();
                 }
 
+                //Activate the getAID function
                 SqlCommand sqlCommand = new SqlCommand("SELECT dbo.getAID(@uname_param)", con);
                 SqlParameter email = new SqlParameter("@uname_param", System.Data.SqlDbType.VarChar);
                 email.Value = userName;
                 sqlCommand.Parameters.Add(email);
                 inventory.ID = (int)sqlCommand.ExecuteScalar();
 
+                //Activate the getfood function
                 SqlCommand getFood = new SqlCommand("SELECT * FROM dbo.f_getFoodFromAID(@Aid_param)", con);
                 SqlParameter AID = new SqlParameter("@Aid_param", System.Data.SqlDbType.Int);
                 AID.Value = inventory.ID;
@@ -44,7 +47,7 @@ namespace Overflow.Controllers
                     inventory.Ingredients.Add(reader.GetString(0));
                 }
 
-                // Login login = new Login();
+                Login login = new Login();
                 return View("~/Views/Inventory/inventory.cshtml", inventory);
             }
             catch
@@ -115,7 +118,7 @@ namespace Overflow.Controllers
 
         }
 
-        [HttpPost] //****************************************************This needs some work*************************************
+        [HttpPost] 
         public ActionResult DeleteItem(string[] function_param)
         {
             Inventory inventory = new Inventory();
@@ -129,7 +132,6 @@ namespace Overflow.Controllers
                 con.Open();
             }
 
-            // ******This was all commented out below******
 
             string userName = Session["username"].ToString();
             inventory.Username = userName;

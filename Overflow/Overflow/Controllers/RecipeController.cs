@@ -70,8 +70,8 @@ namespace Overflow.Controllers
 
             WebClient Client = new WebClient();
             //get a string representation of our json
-           // string urlPageCode = Client.DownloadString("https://api.edamam.com/search?&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
-           string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=milk&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
+           // string urlPageCode = Client.DownloadString("https://api.edamam.com/search?&app_id=e470194d&app_key=9efbee79595f1181598425c821e6e4bf&from=0&to=100&calories=591-722&health=alcohol-free");
+           string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=milk&app_id=e470194d&app_key=9efbee79595f1181598425c821e6e4bf&from=0&to=100&calories=591-722&health=alcohol-free");
 
             Rootobject r = JsonConvert.DeserializeObject<Rootobject>(urlPageCode);
 
@@ -89,7 +89,7 @@ namespace Overflow.Controllers
                 //tempList.Clear();
             }
 
-            int numMatches = 0;
+            
             var invContains = inventoryList.Select(w => @"\b" + Regex.Escape(w) + @"\b");
             var invMatch = new Regex("(" + string.Join(")|(", invContains) + ")");
 
@@ -99,6 +99,7 @@ namespace Overflow.Controllers
             //Iterates through all elements of dictionary
             for (int i = 0; i < d.Count(); i++)
             {
+                int numMatches = 0;
                 //Iterates through all ingredients for an element of dictionary
                 foreach (string ingredient in d[i])
                 {
@@ -111,7 +112,9 @@ namespace Overflow.Controllers
                         numMatches++;
                     }
                 }
-                Decimal matchPercent = (numMatches / d[i].Count);
+                int holder = r.hits.ElementAt(i).recipe.ingredientLines.Length;
+                Decimal matchPercent = ((Decimal)numMatches / (Decimal)r.hits.ElementAt(i).recipe.ingredientLines.Length)*100;
+                
                 rec = new OurRecipe();
                 rec.MatchPercent = matchPercent;
                 rec.RecipeLabel = r.hits[i].recipe.label;
@@ -121,10 +124,10 @@ namespace Overflow.Controllers
                 recipes.Add(rec);
 
             }
-
+           
             RecipeContainer rc = new RecipeContainer();
             rc.RecipeContainerListContainerofLists = recipes;
-
+            
             return View("~/Views/Recipes/Recipes.cshtml", rc);
         }
     }

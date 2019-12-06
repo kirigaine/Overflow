@@ -89,7 +89,7 @@ namespace Overflow.Controllers
                 //tempList.Clear();
             }
 
-            int numMatches = 0;
+            
             var invContains = inventoryList.Select(w => @"\b" + Regex.Escape(w) + @"\b");
             var invMatch = new Regex("(" + string.Join(")|(", invContains) + ")");
 
@@ -99,6 +99,7 @@ namespace Overflow.Controllers
             //Iterates through all elements of dictionary
             for (int i = 0; i < d.Count(); i++)
             {
+                int numMatches = 0;
                 //Iterates through all ingredients for an element of dictionary
                 foreach (string ingredient in d[i])
                 {
@@ -111,7 +112,9 @@ namespace Overflow.Controllers
                         numMatches++;
                     }
                 }
-                Decimal matchPercent = (numMatches / d[i].Count);
+                int holder = r.hits.ElementAt(i).recipe.ingredientLines.Length;
+                Decimal matchPercent = ((Decimal)numMatches / (Decimal)r.hits.ElementAt(i).recipe.ingredientLines.Length)*100;
+                
                 rec = new OurRecipe();
                 rec.MatchPercent = matchPercent;
                 rec.RecipeLabel = r.hits[i].recipe.label;
@@ -121,10 +124,10 @@ namespace Overflow.Controllers
                 recipes.Add(rec);
 
             }
-
+           
             RecipeContainer rc = new RecipeContainer();
             rc.RecipeContainerListContainerofLists = recipes;
-
+            
             return View("~/Views/Recipes/Recipes.cshtml", rc);
         }
     }

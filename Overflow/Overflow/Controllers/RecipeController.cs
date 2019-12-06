@@ -67,68 +67,74 @@ namespace Overflow.Controllers
                 return View("~/Views/Home/Index.cshtml", login);
             }
 
-
-            WebClient Client = new WebClient();
-            //get a string representation of our json
-           // string urlPageCode = Client.DownloadString("https://api.edamam.com/search?&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
-           string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=milk&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
-
-            Rootobject r = JsonConvert.DeserializeObject<Rootobject>(urlPageCode);
-
-            Dictionary<int, List<String>> d = new Dictionary<int, List<string>>();
-            
-            
-            for (int i=0; i  <r.hits.Length; i++)
+            try
             {
-                List<string> tempRecipeList = new List<string>();
-                foreach (var item in r.hits.ElementAt(i).recipe.ingredientLines) //Goes through the ingredients in a recipe and adds it to the Ilist
-                {
-                    tempRecipeList.Add(item);
-                }
-                d.Add(i, tempRecipeList);
-                //tempList.Clear();
-            }
-
-            
-            var invContains = inventoryList.Select(w => @"\b" + Regex.Escape(w) + @"\b");
-            var invMatch = new Regex("(" + string.Join(")|(", invContains) + ")");
-
-            List<OurRecipe> recipes = new List<OurRecipe>(100);
-            OurRecipe rec;
-
-            //Iterates through all elements of dictionary
-            for (int i = 0; i < d.Count(); i++)
-            {
-                int numMatches = 0;
-                //Iterates through all ingredients for an element of dictionary
-                foreach (string ingredient in d[i])
-                {
-                    string currentIngredient = ingredient;
-                    bool found = false;
-                    found = invMatch.IsMatch(currentIngredient);
-                    if (found == true)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Matched to" + currentIngredient + "!");
-                        numMatches++;
-                    }
-                }
-                int holder = r.hits.ElementAt(i).recipe.ingredientLines.Length;
-                Decimal matchPercent = ((Decimal)numMatches / (Decimal)r.hits.ElementAt(i).recipe.ingredientLines.Length)*100;
+                WebClient Client = new WebClient();
+                //get a string representation of our json
                 
-                rec = new OurRecipe();
-                rec.MatchPercent = matchPercent;
-                rec.RecipeLabel = r.hits[i].recipe.label;
-                rec.ImageURL = r.hits[i].recipe.image;
-                rec.RecipeURL = r.hits[i].recipe.url;
-                rec.Source = r.hits[i].recipe.source;
-                recipes.Add(rec);
+                string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=milk&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
 
+                Rootobject r = JsonConvert.DeserializeObject<Rootobject>(urlPageCode);
+
+                Dictionary<int, List<String>> d = new Dictionary<int, List<string>>();
+
+
+                for (int i = 0; i < r.hits.Length; i++)
+                {
+                    List<string> tempRecipeList = new List<string>();
+                    foreach (var item in r.hits.ElementAt(i).recipe.ingredientLines) //Goes through the ingredients in a recipe and adds it to the Ilist
+                    {
+                        tempRecipeList.Add(item);
+                    }
+                    d.Add(i, tempRecipeList);
+                    //tempList.Clear();
+                }
+
+
+                var invContains = inventoryList.Select(w => @"\b" + Regex.Escape(w) + @"\b");
+                var invMatch = new Regex("(" + string.Join(")|(", invContains) + ")");
+
+                List<OurRecipe> recipes = new List<OurRecipe>(100);
+                OurRecipe rec;
+
+                //Iterates through all elements of dictionary
+                for (int i = 0; i < d.Count(); i++)
+                {
+                    int numMatches = 0;
+                    //Iterates through all ingredients for an element of dictionary
+                    foreach (string ingredient in d[i])
+                    {
+                        string currentIngredient = ingredient;
+                        bool found = false;
+                        found = invMatch.IsMatch(currentIngredient);
+                        if (found == true)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Matched to" + currentIngredient + "!");
+                            numMatches++;
+                        }
+                    }
+                    int holder = r.hits.ElementAt(i).recipe.ingredientLines.Length;
+                    Decimal matchPercent = ((Decimal)numMatches / (Decimal)r.hits.ElementAt(i).recipe.ingredientLines.Length) * 100;
+
+                    rec = new OurRecipe();
+                    rec.MatchPercent = matchPercent;
+                    rec.RecipeLabel = r.hits[i].recipe.label;
+                    rec.ImageURL = r.hits[i].recipe.image;
+                    rec.RecipeURL = r.hits[i].recipe.url;
+                    rec.Source = r.hits[i].recipe.source;
+                    recipes.Add(rec);
+
+                }
+
+                RecipeContainer rc = new RecipeContainer();
+                rc.RecipeContainerListContainerofLists = recipes;
+
+                return View("~/Views/Recipes/Recipes.cshtml", rc);
             }
-           
-            RecipeContainer rc = new RecipeContainer();
-            rc.RecipeContainerListContainerofLists = recipes;
-            
-            return View("~/Views/Recipes/Recipes.cshtml", rc);
+            catch (System.Net.WebException e)
+            {
+                return RedirectToAction("Inventory", "Inventory");
+            }
         }
     }
 }

@@ -38,6 +38,11 @@
                 slctAll.addEventListener("click", selectAll);
                 deleteBtn = document.getElementById("delete");
                 deleteBtn.addEventListener("click", remove);
+                document.getElementById("addedIngr").addEventListener("keyup", function (event) {
+                    if (event.keyCode === 13) {
+                        document.getElementById("addBtn").click();
+                    }
+                });
             }
 
             function exists(itemID) {
@@ -136,6 +141,7 @@
                     }
                 }
             }
+            
 
             window.addEventListener("load", start, "false");
 
@@ -162,7 +168,7 @@
         </div>
         <br>
         <div class="input-group">
-                <input type="text" class="form-control" placeholder="Add ingredient" aria-label="Add ingredient" aria-describedby="button-addon2" id="addedIngr">
+                <input type="text" class="form-control" placeholder="Add ingredient" aria-label="Add ingredient" aria-describedby="button-addon2" id="addedIngr" on>
                 <div class="input-group-append">
                     <button class="btn btn-dark" type="button" id="addBtn" onclick="add()">Add</button>
                 </div>

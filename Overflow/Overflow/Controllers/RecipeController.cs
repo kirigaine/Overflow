@@ -72,7 +72,7 @@ namespace Overflow.Controllers
                 WebClient Client = new WebClient();
                 //get a string representation of our json
                 
-                string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=milk&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
+                string urlPageCode = Client.DownloadString("https://api.edamam.com/search?q=turkey&app_id=e470194d&app_key=&from=0&to=100&calories=591-722&health=alcohol-free");
 
                 Rootobject r = JsonConvert.DeserializeObject<Rootobject>(urlPageCode);
 

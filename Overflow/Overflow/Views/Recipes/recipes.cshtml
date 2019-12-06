@@ -3,13 +3,34 @@
     ViewBag.Title = "recipes";
 }
 
-@*<*@@*script type="text/javascript">
+<script type="text/javascript">
+    let recipes = JSON.parse('@Html.Raw(Json.Encode(@Model.RecipeContainerListContainerofLists))');
+    let pageNumber = 1;
     function start() {
-        Console.Write($"@Model.RecipeURL");
+        recipes.sort(function (a, b) { return b.MatchPercent - a.MatchPercent });
+
+        printRecipes(1, recipes);
+    }
+
+    function printRecipes(pageNum, recipeList) {
+        document.getElementById("recipes").innerHTML = "";
+        for (let i = (pageNum - 1) * 10; i < (pageNum * 10); i++) {
+            document.getElementById("recipes").innerHTML += "<div style='width:80%; margin-left: auto; margin-right: auto'><a href = '" + recipeList[i].RecipeURL + "' target='_blank'><button style='border-radius: 10px; width: 100%'><img src='" + recipeList[i].ImageURL + "' style='width: 15%; float: left; margin: 10px; border-radius: 20px' /><div style='float: left; text-align: left'><h3>" + recipeList[i].RecipeLabel + "</h3><h5>Source: " + recipeList[i].Source + "</h5></div><h1 style='float: right'>" + recipeList[i].MatchPercent + "%</h1></button></a></div>";
+        }
+        if (pageNum == 1) {
+            document.getElementById("prev").className = "page-item disabled";
+        }
+        else if (pageNum == 10) {
+            document.getElementById("next").className = "page-item disabled";
+        }
+        else {
+            document.getElementById("prev").className = "page-item";
+            document.getElementById("next").className = "page-item";
+        }
     }
 
     window.addEventListener("load", start, "false");
-</script>*@
+</script>
 <style>
     img {
         max-width: 100%;
@@ -24,86 +45,27 @@
 
 <body>
     <h1>Recipes</h1>
-    @if (Session["username"].ToString().Equals("tbishop_1996@hotmail.com"))
-        
-    {
-    <p id="recipes">
-        
-        </p>
-        <div style="width:80%; margin-left: auto; margin-right: auto">
-            <button style="border-radius: 10px">
-                <img src="https://bigoven-res.cloudinary.com/image/upload/d_recipe-no-image.jpg,t_recipe-480/one-pot-goulash.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
-                <div style="float: left; text-align: left">
-                    <h1>Title: Ghoulash</h1>
-                    <h3>Main Ingredient: Macaroni Pasta</h3>
-                </div>
-                <h1 style="float: right">87%</h1>
-            </button>
-        </div>
-
-        <div style="width:80%; margin-left: auto; margin-right: auto">
-            <button style="border-radius: 10px">
-                <img src="https://bigoven-res.cloudinary.com/image/upload/d_recipe-no-image.jpg,t_recipe-480/bakedgarlicparmesanchicken-7aaf18.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
-                <div style="float: left; text-align: left">
-                    <h1>Title: Parmesan Chicken</h1>
-                    <h3>Main Ingredient: Chicken Breast</h3>
-                </div>
-                <h1 style="float: right">60%</h1>
-            </button>
-        </div>
-
-        <div style="width:80%; margin-left: auto; margin-right: auto">
-            <button style="border-radius: 10px">
-                <img src="https://bigoven-res.cloudinary.com/image/upload/d_recipe-no-image.jpg,t_recipe-480/tuna-noodle-casserole-767f8a.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
-                <div style="float: left; text-align: left">
-                    <h1>Title: Tuna Noodle Casserole</h1>
-                    <h3>Main Ingredient: Tuna</h3>
-                </div>
-                <h1 style="float: right">34%</h1>
-            </button>
-        </div>
-    }
-    else if (Session["username"].ToString().Equals("devin.cook@icloud.com"))
-    {
-        <recipe title="Chicken Fettucine Alfredo" mainIngr="Chicken"></recipe>
-        <p id="recipes"></p>
-
-        <p>@Model.RecipeContainerListContainerofLists.ElementAt(0).RecipeURL</p>
-
-        <div style="width:80%; margin-left: auto; margin-right: auto">
-            <button style="border-radius: 10px">
-                <img src="https://www.onionringsandthings.com/wp-content/uploads/2018/08/chicken-alfredo-casserole-6.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
-                <div style="float: left; text-align: left">
-                    <h1>Title: Chicken Penne Alfredo</h1>
-                    <h3>Main Ingredient: Pasta</h3>
-                </div>
-                <h1 style="float: right">95%</h1>
-            </button>
-        </div>
-
-        <div style="width:80%; margin-left: auto; margin-right: auto">
-            <button style="border-radius: 10px">
-                <img src="https://www.recipetineats.com/wp-content/uploads/2017/03/One-Pot-Chicken-Alfredo-2.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
-                <div style="float: left; text-align: left">
-                    <h1>Title: Creamy Italian Chicken Pasta</h1>
-                    <h3>Main Ingredient: Pasta</h3>
-                </div>
-                <h1 style="float: right">90%</h1>
-
-            </button>
-        </div>
-
-        <div style="width:80%; margin-left: auto; margin-right: auto">
-            <button style="border-radius: 10px">
-                <img src="https://thestayathomechef.com/wp-content/uploads/2016/06/Fried-Chicken-4-1.jpg" style="width: 15%; float: left; margin: 10px; border-radius: 20px" />
-                <div style="float: left; text-align: left">
-                    <h1>Title: Fried Chicken</h1>
-                    <h3>Main Ingredient: Chicken</h3>
-                </div>
-                <h1 style="float: right">90%</h1>
-            </button>
-        </div>
-    }
+    <div id="recipes"></div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled" id="prev">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true" onclick="pageNumber--; printRecipes(pageNumber, recipes)">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 1; printRecipes(pageNumber, recipes)">1</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 2; printRecipes(pageNumber, recipes)">2</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 3; printRecipes(pageNumber, recipes)">3</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 4; printRecipes(pageNumber, recipes)">4</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 5; printRecipes(pageNumber, recipes)">5</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 6; printRecipes(pageNumber, recipes)">6</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 7; printRecipes(pageNumber, recipes)">7</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 8; printRecipes(pageNumber, recipes)">8</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 9; printRecipes(pageNumber, recipes)">9</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="pageNumber = 10; printRecipes(pageNumber, recipes)">10</a></li>
+            <li class="page-item" id="next">
+                <a class="page-link" href="#" onclick="pageNumber++; printRecipes(pageNumber, recipes)">Next</a>
+            </li>
+        </ul>
+    </nav>
 </body>
 
 

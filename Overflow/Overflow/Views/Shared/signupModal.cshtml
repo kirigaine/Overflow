@@ -42,12 +42,12 @@
                         <!--Password input-->
                         <div class="form-group">
                             <label for="passwd">Password</label>
-                            @Html.TextBoxFor(l => l.Pass, new { @class = "form-control" })
+                            @Html.TextBoxFor(l => l.Pass, new { @class = "form-control", type="password" })
                         </div>
                         <!--Password verification-->
                         <div class="form-group">
                             <label for="passwdVerify">Verify Password</label>
-                            @Html.TextBoxFor(l => l.SecondPass, new { @class = "form-control" })
+                            @Html.TextBoxFor(l => l.SecondPass, new { @class = "form-control", type="password" })
                         </div>
                         <!--Submit button-->
                         <div class="text-right">

@@ -115,7 +115,7 @@ namespace Overflow.Controllers
                     }
                     int holder = r.hits.ElementAt(i).recipe.ingredientLines.Length;
                     Decimal matchPercent = ((Decimal)numMatches / (Decimal)r.hits.ElementAt(i).recipe.ingredientLines.Length) * 100;
-
+                    matchPercent = decimal.Round(matchPercent, 2, MidpointRounding.AwayFromZero);
                     rec = new OurRecipe();
                     rec.MatchPercent = matchPercent;
                     rec.RecipeLabel = r.hits[i].recipe.label;
